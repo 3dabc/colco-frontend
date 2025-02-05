@@ -22,7 +22,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 const Header = () => {
   return (
     <>
-      <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+      <div className="header pb-8 pt-5 pt-md-8" style={{backgroundColor: "F5F6FA"}}>
         <Container fluid>
           <div className="header-body">
             {/* Card stats */}
@@ -34,7 +34,7 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase font-weight-bold mb-0"
                         >
                           Soil Moisture
                         </CardTitle>
@@ -43,7 +43,7 @@ const Header = () => {
                         </span>
                       </div>
                       <Col className="col-auto">
-                        <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <div className="icon icon-shape bg-blue text-white rounded-circle shadow">
                           <i className="fa-solid fa-droplet" />
                         </div>
                       </Col>
@@ -64,14 +64,14 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase font-weight-bold mb-0"
                         >
                           Relative Humidity
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">70%</span>
                       </div>
                       <Col className="col-auto">
-                        <div className="icon icon-shape bg-warning text-white rounded-circle shadow">
+                        <div className="icon icon-shape bg-info text-white rounded-circle shadow">
                           <i className="fa-solid fa-cloud-showers-water" />
                         </div>
                       </Col>
@@ -92,14 +92,14 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase font-weight-bold mb-0"
                         >
                           Temperature
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">86°F</span>
                       </div>
                       <Col className="col-auto">
-                        <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                        <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
                           <i className="fa-solid fa-temperature-half" />
                         </div>
                       </Col>
@@ -120,14 +120,14 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase font-weight-bold mb-0"
                         >
                           Light Intensity
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">1,500 lx</span>
                       </div>
                       <Col className="col-auto">
-                        <div className="icon icon-shape bg-info text-white rounded-circle shadow">
+                        <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
                           <i className="ni ni-bulb-61" />
                         </div>
                       </Col>
@@ -148,7 +148,7 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase font-weight-bold mb-0"
                         >
                           Soil pH
                         </CardTitle>
@@ -157,7 +157,7 @@ const Header = () => {
                         </span>
                       </div>
                       <Col className="col-auto">
-                        <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <div className="icon icon-shape bg-orange text-white rounded-circle shadow">
                           <i className="ni ni-sound-wave" />
                         </div>
                       </Col>
