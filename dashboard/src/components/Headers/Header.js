@@ -22,7 +22,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 const Header = () => {
   return (
     <>
-      <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
+      <div className="header  pb-8 pt-5 pt-md-8" style={{backgroundColor: "#F5F6FA"}}> 
         <Container fluid>
           <div className="header-body">
             {/* Card stats */}
@@ -34,7 +34,7 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase  mb-0 font-weight-bold"
                         >
                           Soil Moisture
                         </CardTitle>
@@ -64,7 +64,7 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase font-weight-bold mb-0"
                         >
                           Relative Humidity
                         </CardTitle>
@@ -92,7 +92,7 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase font-weight-bold mb-0"
                         >
                           Temperature
                         </CardTitle>
@@ -120,7 +120,7 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase font-weight-bold mb-0"
                         >
                           Light Intensity
                         </CardTitle>
@@ -148,7 +148,7 @@ const Header = () => {
                       <div className="col">
                         <CardTitle
                           tag="h5"
-                          className="text-uppercase text-muted mb-0"
+                          className="text-uppercase font-weight-bold mb-0"
                         >
                           Soil pH
                         </CardTitle>
