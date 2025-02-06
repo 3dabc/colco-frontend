@@ -167,7 +167,7 @@ var colors = {
   },
   theme: {
     default: "#172b4d",
-    primary: "#5e72e4",
+    primary: "#023F3A",
     secondary: "#f4f5f7",
     info: "#11cdef",
     success: "#2dce89",
@@ -207,12 +207,12 @@ function chartOptions() {
         elements: {
           point: {
             radius: 0,
-            backgroundColor: colors.theme["primary"],
+            backgroundColor: colors.theme["info"],
           },
           line: {
             tension: 0.4,
             borderWidth: 4,
-            borderColor: colors.theme["primary"],
+            borderColor: colors.theme["info"],
             backgroundColor: colors.transparent,
             borderCapStyle: "rounded",
           },
@@ -220,7 +220,7 @@ function chartOptions() {
             backgroundColor: colors.theme["warning"],
           },
           arc: {
-            backgroundColor: colors.theme["primary"],
+            backgroundColor: colors.theme["info"],
             borderColor: mode === "dark" ? colors.gray[800] : colors.white,
             borderWidth: 4,
           },
