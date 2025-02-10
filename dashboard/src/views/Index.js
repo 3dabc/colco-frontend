@@ -44,6 +44,7 @@ import {
   parseOptions,
   chartExample1,
   chartExample2,
+  chartHumidity,
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
@@ -67,7 +68,7 @@ const Index = (props) => {
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
-        <Col xl="6">
+        <Col xl="4">
             <Card className="shadow">
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
@@ -81,16 +82,18 @@ const Index = (props) => {
               </CardHeader>
               <CardBody>
                 {/* Chart */}
-                <div className="chart">
+                <div 
+                style={{position: "relative",
+                        height: "200px"}}>
                   <Bar
-                    data={chartExample2.data}
-                    options={chartExample2.options}
+                    data={chartHumidity.data}
+                    options={chartHumidity.options}
                   />
                 </div>
               </CardBody>
             </Card>
           </Col>
-          <Col className="mb-5 mb-xl-0" xl="5">
+          <Col className="mb-5 mb-xl-0" xl="4">
             <Card className="bg-gradient-default shadow">
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
@@ -133,7 +136,9 @@ const Index = (props) => {
               </CardHeader>
               <CardBody>
                 {/* Chart */}
-                <div className="chart">
+                <div 
+                style={{position: "relative",
+                        height: "200px"}}>
                   <Line
                     data={chartExample1[chartExample1Data]}
                     options={chartExample1.options}

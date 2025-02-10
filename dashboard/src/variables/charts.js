@@ -411,9 +411,63 @@ let chartExample2 = {
   },
 };
 
+//chart used for Average Humidity
+let chartHumidity = {
+  options: {
+   
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            stepSize: 25,
+            callback: function (value) {
+           
+                //return '$' + value + 'k'
+                return value + "%";
+              
+            },
+          },
+        },
+      ],
+    },
+    tooltips: {
+      callbacks: {
+        label: function (item, data) {
+          var label = data.datasets[item.datasetIndex].label || "";
+          var yLabel = item.yLabel;
+          var content = "";
+          if (data.datasets.length > 1) {
+            content += label;
+          }
+          content += yLabel;
+          return content;
+        },
+      },
+    },
+  },
+  data: {
+    labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
+    datasets: [
+      {
+        label: "Sensor1: ",
+        data: [20, 50, 90, 22, 17, 29, 75],
+        maxBarThickness: 10,
+        backgroundColor: "#0095FF"
+      },
+      {
+        label: "Sensor2: ",
+        data: [25, 45, 95, 30, 10, 29, 75],
+        maxBarThickness: 10,
+        backgroundColor: "#00E096"
+      },
+    ],
+  },
+};
+
 module.exports = {
   chartOptions, // used inside src/views/Index.js
   parseOptions, // used inside src/views/Index.js
   chartExample1, // used inside src/views/Index.js
   chartExample2, // used inside src/views/Index.js
+  chartHumidity,
 };
