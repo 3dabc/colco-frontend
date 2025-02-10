@@ -67,7 +67,30 @@ const Index = (props) => {
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
-          <Col className="mb-5 mb-xl-0" xl="8">
+        <Col xl="6">
+            <Card className="shadow">
+              <CardHeader className="bg-transparent">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h6 className="text-uppercase text-muted ls-1 mb-1">
+                      Performance
+                    </h6>
+                    <h2 className="mb-0">Average Humidity</h2>
+                  </div>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                {/* Chart */}
+                <div className="chart">
+                  <Bar
+                    data={chartExample2.data}
+                    options={chartExample2.options}
+                  />
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col className="mb-5 mb-xl-0" xl="5">
             <Card className="bg-gradient-default shadow">
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
@@ -128,7 +151,7 @@ const Index = (props) => {
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
                       Performance
                     </h6>
-                    <h2 className="mb-0">Average Humidity</h2>
+                    <h2 className="mb-0">Target vs Reality</h2>
                   </div>
                 </Row>
               </CardHeader>
