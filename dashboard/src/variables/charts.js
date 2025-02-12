@@ -307,6 +307,7 @@ function parseOptions(parent, options) {
 }
 
 // Example 1 of Chart inside src/views/Index.js (Sales value - Card)
+// Used for daily Temperature
 let chartExample1 = {
   options: {
     scales: {
@@ -345,11 +346,11 @@ let chartExample1 = {
   },
   data1: (canvas) => {
     return {
-      labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
           label: "Performance",
-          data: [0, 20, 10, 30, 15, 40, 20, 60, 60],
+          data: [0, 20, 10, 30, 15, 40, 20, 60],
           //backgroundImage: "linear-gradient(to right, #0095FF, #0095FF)",
           borderColor: "#0095FF",
 
@@ -359,11 +360,11 @@ let chartExample1 = {
   },
   data2: (canvas) => {
     return {
-      labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
           label: "Performance",
-          data: [0, 20, 5, 25, 10, 30, 15, 40, 40],
+          data: [0, 20, 5, 25, 10, 30, 15, 40],
           borderColor: "#07E098",
         },
       ],
@@ -458,6 +459,12 @@ let chartHumidity = {
         maxBarThickness: 10,
         backgroundColor: "#0095FF"
       },
+      
+    ],
+  },
+  data2: {
+    labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
+    datasets: [
       {
         label: "Sensor2: ",
         data: [25, 45, 95, 30, 10, 29, 75],
@@ -465,7 +472,7 @@ let chartHumidity = {
         backgroundColor: "#00E096"
       },
     ],
-  },
+    }
 };
 
 // chart used for pH target vs reality
