@@ -28,6 +28,10 @@ import {
   Card,
   CardHeader,
   CardBody,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
   NavItem,
   NavLink,
   Nav,
@@ -45,6 +49,7 @@ import {
   chartExample1,
   chartExample2,
   chartHumidity,
+  chartPH,
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
@@ -78,6 +83,8 @@ const Index = (props) => {
                     </h6>
                     <h2 className="mb-0">Average Humidity</h2>
                   </div>
+                  <Button>Sensors</Button>
+
                 </Row>
               </CardHeader>
               <CardBody>
@@ -94,16 +101,16 @@ const Index = (props) => {
             </Card>
           </Col>
           <Col className="mb-5 mb-xl-0" xl="4">
-            <Card className="bg-gradient-default shadow">
+            <Card className="bg-white shadow">
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h6 className="text-uppercase text-light ls-1 mb-1">
+                    <h6 className="text-uppercase text-muted ls-1 mb-1">
                       Overview
                     </h6>
-                    <h2 className="text-white mb-0">Daily Temperature</h2>
+                    <h2 className="text-black mb-0">Daily Temperature</h2>
                   </div>
-                  <div className="col">
+                  <div className="col" >
                     <Nav className="justify-content-end" pills>
                       <NavItem>
                         <NavLink
@@ -113,7 +120,7 @@ const Index = (props) => {
                           href="#pablo"
                           onClick={(e) => toggleNavs(e, 1)}
                         >
-                          <span className="d-none d-md-block">Month</span>
+                          <span className="d-none d-md-block">Sensor 1</span>
                           <span className="d-md-none">M</span>
                         </NavLink>
                       </NavItem>
@@ -126,7 +133,7 @@ const Index = (props) => {
                           href="#pablo"
                           onClick={(e) => toggleNavs(e, 2)}
                         >
-                          <span className="d-none d-md-block">Week</span>
+                          <span className="d-none d-md-block">Sensor 2</span>
                           <span className="d-md-none">W</span>
                         </NavLink>
                       </NavItem>
@@ -156,16 +163,19 @@ const Index = (props) => {
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
                       Performance
                     </h6>
-                    <h2 className="mb-0">Target vs Reality</h2>
+                    <h2 className="mb-0">Target vs Reality (pH)</h2>
                   </div>
+                  <Button>Sensors</Button>
+
                 </Row>
               </CardHeader>
               <CardBody>
                 {/* Chart */}
-                <div className="chart">
+                <div style={{position: "relative",
+                        height: "200px"}}>
                   <Bar
-                    data={chartExample2.data}
-                    options={chartExample2.options}
+                    data={chartPH.data}
+                    options={chartPH.options}
                   />
                 </div>
               </CardBody>
@@ -178,7 +188,7 @@ const Index = (props) => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Page visits</h3>
+                    <h3 className="mb-0">Numer of Sensors: 2</h3>
                   </div>
                   <div className="col text-right">
                     <Button
@@ -192,7 +202,7 @@ const Index = (props) => {
                   </div>
                 </Row>
               </CardHeader>
-              <Table className="align-items-center table-flush" responsive>
+              {/* <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">Page name</th>
@@ -246,7 +256,7 @@ const Index = (props) => {
                     </td>
                   </tr>
                 </tbody>
-              </Table>
+              </Table> */}
             </Card>
           </Col>
           <Col xl="4">
@@ -254,7 +264,7 @@ const Index = (props) => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Social traffic</h3>
+                    <h3 className="mb-0">Maps</h3>
                   </div>
                   <div className="col text-right">
                     <Button
@@ -263,12 +273,12 @@ const Index = (props) => {
                       onClick={(e) => e.preventDefault()}
                       size="sm"
                     >
-                      See all
+                      See locations
                     </Button>
                   </div>
                 </Row>
               </CardHeader>
-              <Table className="align-items-center table-flush" responsive>
+              {/* <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">Referral</th>
@@ -354,7 +364,7 @@ const Index = (props) => {
                     </td>
                   </tr>
                 </tbody>
-              </Table>
+              </Table> */}
             </Card>
           </Col>
         </Row>

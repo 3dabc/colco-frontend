@@ -319,7 +319,7 @@ let chartExample1 = {
           ticks: {
             callback: function (value) {
               if (!(value % 10)) {
-                return "$" + value + "k";
+                return value + "°F";
               }
             },
           },
@@ -337,7 +337,7 @@ let chartExample1 = {
             content += label;
           }
 
-          content += "$" + yLabel + "k";
+          content += yLabel + "°F";
           return content;
         },
       },
@@ -350,6 +350,9 @@ let chartExample1 = {
         {
           label: "Performance",
           data: [0, 20, 10, 30, 15, 40, 20, 60, 60],
+          //backgroundImage: "linear-gradient(to right, #0095FF, #0095FF)",
+          borderColor: "#0095FF",
+
         },
       ],
     };
@@ -361,6 +364,7 @@ let chartExample1 = {
         {
           label: "Performance",
           data: [0, 20, 5, 25, 10, 30, 15, 40, 40],
+          borderColor: "#07E098",
         },
       ],
     };
@@ -464,10 +468,65 @@ let chartHumidity = {
   },
 };
 
+// chart used for pH target vs reality
+let chartPH = {
+  options: {
+   
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            stepSize: 2,
+            callback: function (value) {
+           
+                //return '$' + value + 'k'
+                return value;
+              
+            },
+          },
+        },
+      ],
+    },
+    tooltips: {
+      callbacks: {
+        label: function (item, data) {
+          var label = data.datasets[item.datasetIndex].label || "";
+          var yLabel = item.yLabel;
+          var content = "";
+          if (data.datasets.length > 1) {
+            content += label;
+          }
+          content += yLabel;
+          return content;
+        },
+      },
+    },
+  },
+  data: {
+    labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "Sensor 1: ",
+        data: [4, 5, 9, 2, 7, 9, 7],
+        maxBarThickness: 10,
+        backgroundColor: "#4AB58E"
+      },
+      {
+        label: "Target: ",
+        data: [5, 5, 9, 3, 1, 9, 7],
+        maxBarThickness: 10,
+        backgroundColor: "#FFCF00"
+      },
+    ],
+  },
+};
+
+
 module.exports = {
   chartOptions, // used inside src/views/Index.js
   parseOptions, // used inside src/views/Index.js
   chartExample1, // used inside src/views/Index.js
   chartExample2, // used inside src/views/Index.js
   chartHumidity,
+  chartPH,
 };
