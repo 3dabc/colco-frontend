@@ -19,6 +19,7 @@ import Index from "views/Index.js";
 import Profile from "views/examples/Profile.js";
 import Maps from "views/examples/Maps.js";
 import Login from "views/examples/Login.js";
+import Hardware from "views/examples/Hardware.js";
 
 
 var routes = [
@@ -35,6 +36,12 @@ var routes = [
     icon: "ni ni-pin-3 text-muted",
     component: <Maps />,
     layout: "/admin",
+  },
+  {path: "/hardware",
+   name: "Hardware",
+   icon: "fa fa-cog text-muted",
+   component: <Hardware />,
+   layout: "/admin",
   },
   {
     path: "/user-profile",
