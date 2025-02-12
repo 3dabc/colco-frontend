@@ -31,7 +31,7 @@ const Auth = (props) => {
   const location = useLocation();
 
   React.useEffect(() => {
-    document.body.classList.add("bg-default");
+    document.body.classList.add("bg-secondary");
     return () => {
       document.body.classList.remove("bg-default");
     };
@@ -58,13 +58,13 @@ const Auth = (props) => {
     <>
       <div className="main-content" ref={mainContent}>
         <AuthNavbar />
-        <div className="header bg-light py-7 py-lg-8">
+        <div className="header bg-secondary py-7 py-lg-8">
           <Container>
             <div className="header-body text-center mb-7">
               <Row className="justify-content-center">
                 <Col lg="5" md="6">
-                  <h1 className="text-white">Welcome!</h1>
-                  <p className="text-lead text-white">
+                  <h1 className="text-dark">Welcome!</h1>
+                  <p className="text-lead text-dark">
                     Log in here.
                   </p>
                 </Col>
