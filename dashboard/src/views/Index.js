@@ -47,8 +47,7 @@ import {
 import {
   chartOptions,
   parseOptions,
-  chartExample1,
-  chartExample2,
+  chartTemp,
   chartHumidity,
   chartPH,
 } from "variables/charts.js";
@@ -56,18 +55,32 @@ import {
 import Header from "components/Headers/Header.js";
 
 const Index = (props) => {
-  const [activeNav, setActiveNav] = useState(1);
-  const [chartExample1Data, setChartExample1Data] = useState("data1");
+  //const [activeNav, setActiveNav] = useState(1);
+  const [chartTempData, setChartTempData] = useState(chartTemp.data1);
+
+  const[chartHumidityData, setChartHumidityData] = useState(chartHumidity.data1)
+
+  const[chartPhData, setChartPhData] = useState(chartPH.data1)
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
 
-  const toggleNavs = (e, index) => {
+  const toggleTemp = (e, index) => {
     e.preventDefault();
-    setActiveNav(index);
-    setChartExample1Data("data" + index);
+    setChartTempData(chartTemp["data" + index]);
   };
+
+  const toggleHumidity = (e, index) => {
+    e.preventDefault();
+    setChartHumidityData(chartHumidity["data" + index]);
+  };
+
+  const togglePh = (e, index) => {
+    e.preventDefault();
+    setChartPhData(chartPH["data" + index]);
+  };
+
   return (
     <>
       <Header />
@@ -93,11 +106,11 @@ const Index = (props) => {
                     </span>
                         </DropdownToggle>
                         <DropdownMenu>
-                          <DropdownItem to="/admin/user-profile" onClick={(e) => toggleNavs(e, 1)}>
-                            <span>1</span>
+                          <DropdownItem onClick={(e) => toggleHumidity(e, 1)}>
+                            <span onClick={(e) => toggleHumidity(e, 1)}>1</span>
                           </DropdownItem>
-                          <DropdownItem to="/admin/user-profile" onClick={(e) => toggleNavs(e, 2)}>
-                            <span>2</span>
+                          <DropdownItem  onClick={(e) => toggleHumidity(e, 2)}>
+                            <span onClick={(e) => toggleHumidity(e, 2)}>2</span>
                           </DropdownItem>
                         </DropdownMenu>
                         </UncontrolledDropdown></Nav>
@@ -111,7 +124,7 @@ const Index = (props) => {
                 style={{position: "relative",
                         height: "200px"}}>
                   <Bar
-                    data={chartHumidity.data}
+                    data={chartHumidityData}
                     options={chartHumidity.options}
                   />
                 </div>
@@ -137,10 +150,10 @@ const Index = (props) => {
                     </span>
                         </DropdownToggle>
                         <DropdownMenu>
-                          <DropdownItem to="/admin/user-profile" onClick={(e) => toggleNavs(e, 1)}>
+                          <DropdownItem  onClick={(e) => toggleTemp(e, 1)}>
                             <span>1</span>
                           </DropdownItem>
-                          <DropdownItem to="/admin/user-profile" onClick={(e) => toggleNavs(e, 2)}>
+                          <DropdownItem  onClick={(e) => toggleTemp(e, 2)}>
                             <span>2</span>
                           </DropdownItem>
                         </DropdownMenu>
@@ -149,13 +162,14 @@ const Index = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                {/* Chart */}
                 <div 
                 style={{position: "relative",
-                        height: "200px"}}>
-                  <Line
-                    data={chartExample1[chartExample1Data]}
-                    options={chartExample1.options}
+                        height: "200px",
+                        }
+                        }>
+                  <Line 
+                    data={chartTempData}
+                    options={chartTemp.options}
                     getDatasetAtEvent={(e) => console.log(e)}
                   />
                 </div>
@@ -181,10 +195,10 @@ const Index = (props) => {
                     </span>
                         </DropdownToggle>
                         <DropdownMenu>
-                          <DropdownItem to="/admin/user-profile" onClick={(e) => toggleNavs(e, 1)}>
+                          <DropdownItem onClick={(e) => togglePh(e, 1)}>
                             <span>1</span>
                           </DropdownItem>
-                          <DropdownItem to="/admin/user-profile" onClick={(e) => toggleNavs(e, 2)}>
+                          <DropdownItem onClick={(e) => togglePh(e, 2)}>
                             <span>2</span>
                           </DropdownItem>
                         </DropdownMenu>
@@ -198,7 +212,7 @@ const Index = (props) => {
                 <div style={{position: "relative",
                         height: "200px"}}>
                   <Bar
-                    data={chartPH.data}
+                    data={chartPhData}
                     options={chartPH.options}
                   />
                 </div>
@@ -217,8 +231,7 @@ const Index = (props) => {
                   <div className="col text-right">
                     <Button
                       color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      href="hardware"
                       size="sm"
                     >
                       See all
@@ -293,8 +306,7 @@ const Index = (props) => {
                   <div className="col text-right">
                     <Button
                       color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      href="maps"
                       size="sm"
                     >
                       See locations

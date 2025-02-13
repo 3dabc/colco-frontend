@@ -307,8 +307,8 @@ function parseOptions(parent, options) {
 }
 
 // Example 1 of Chart inside src/views/Index.js (Sales value - Card)
-// Used for daily Temperature
-let chartExample1 = {
+// Used as chart for daily Temperature
+let chartTemp = {
   options: {
     scales: {
       yAxes: [
@@ -450,12 +450,12 @@ let chartHumidity = {
       },
     },
   },
-  data: {
+  data1: {
     labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        label: "Sensor1: ",
-        data: [20, 50, 90, 22, 17, 29, 75],
+        label: "Sensor 1: ",
+        data: [45, 50, 85, 30, 25, 29, 75],
         maxBarThickness: 10,
         backgroundColor: "#0095FF"
       },
@@ -466,7 +466,7 @@ let chartHumidity = {
     labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        label: "Sensor2: ",
+        label: "Sensor 2: ",
         data: [25, 45, 95, 30, 10, 29, 75],
         maxBarThickness: 10,
         backgroundColor: "#00E096"
@@ -509,12 +509,29 @@ let chartPH = {
       },
     },
   },
-  data: {
+  data1: {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
     datasets: [
       {
         label: "Sensor 1: ",
-        data: [4, 5, 9, 2, 7, 9, 7],
+        data: [6, 5, 9, 5, 7, 9, 7],
+        maxBarThickness: 10,
+        backgroundColor: "#4AB58E"
+      },
+      {
+        label: "Target: ",
+        data: [5, 5, 9, 3, 1, 9, 7],
+        maxBarThickness: 10,
+        backgroundColor: "#FFCF00"
+      },
+    ],
+  },
+  data2: {
+    labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "Sensor 2: ",
+        data: [6, 5, 6, 4, 7, 6, 7],
         maxBarThickness: 10,
         backgroundColor: "#4AB58E"
       },
@@ -532,7 +549,7 @@ let chartPH = {
 module.exports = {
   chartOptions, // used inside src/views/Index.js
   parseOptions, // used inside src/views/Index.js
-  chartExample1, // used inside src/views/Index.js
+  chartTemp, // used inside src/views/Index.js
   chartExample2, // used inside src/views/Index.js
   chartHumidity,
   chartPH,
