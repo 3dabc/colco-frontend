@@ -370,6 +370,18 @@ let chartTemp = {
       ],
     };
   },
+  data3: (canvas) => {
+    return {
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      datasets: [
+        {
+          label: "Performance",
+          data: [26, 22, 25, 25, 20, 30, 25, 40],
+          borderColor: "#0095FF",
+        },
+      ],
+    };
+  }
 };
 
 // Example 2 of Chart inside src/views/Index.js (Total orders - Card)
@@ -472,7 +484,18 @@ let chartHumidity = {
         backgroundColor: "#00E096"
       },
     ],
-    }
+    },
+    data3: {
+      labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
+      datasets: [
+        {
+          label: "Sensor 3: ",
+          data: [35, 45, 35, 30, 30, 49, 55],
+          maxBarThickness: 10,
+          backgroundColor: "#0095FF"
+        },
+      ],
+      }
 };
 
 // chart used for pH target vs reality
@@ -543,6 +566,23 @@ let chartPH = {
       },
     ],
   },
+  data3: {
+    labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "Sensor 3: ",
+        data: [8, 6, 6, 7, 8, 8, 7],
+        maxBarThickness: 10,
+        backgroundColor: "#4AB58E"
+      },
+      {
+        label: "Target: ",
+        data: [5, 5, 9, 3, 1, 9, 7],
+        maxBarThickness: 10,
+        backgroundColor: "#FFCF00"
+      },
+    ],
+  }
 };
 
 

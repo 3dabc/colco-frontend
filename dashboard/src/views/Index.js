@@ -107,15 +107,17 @@ const Index = (props) => {
                         </DropdownToggle>
                         <DropdownMenu>
                           <DropdownItem onClick={(e) => toggleHumidity(e, 1)}>
-                            <span onClick={(e) => toggleHumidity(e, 1)}>1</span>
+                            <span >1</span>
                           </DropdownItem>
                           <DropdownItem  onClick={(e) => toggleHumidity(e, 2)}>
-                            <span onClick={(e) => toggleHumidity(e, 2)}>2</span>
+                            <span >2</span>
+                          </DropdownItem>
+                          <DropdownItem  onClick={(e) => toggleHumidity(e, 3)}>
+                            <span >3</span>
                           </DropdownItem>
                         </DropdownMenu>
                         </UncontrolledDropdown></Nav>
                   </Navbar>
-
                 </Row>
               </CardHeader>
               <CardBody>
@@ -155,6 +157,9 @@ const Index = (props) => {
                           </DropdownItem>
                           <DropdownItem  onClick={(e) => toggleTemp(e, 2)}>
                             <span>2</span>
+                          </DropdownItem>
+                          <DropdownItem  onClick={(e) => toggleTemp(e, 3)}>
+                            <span>3</span>
                           </DropdownItem>
                         </DropdownMenu>
                         </UncontrolledDropdown></Nav>
@@ -201,6 +206,9 @@ const Index = (props) => {
                           <DropdownItem onClick={(e) => togglePh(e, 2)}>
                             <span>2</span>
                           </DropdownItem>
+                          <DropdownItem onClick={(e) => togglePh(e, 3)}>
+                            <span>3</span>
+                          </DropdownItem>
                         </DropdownMenu>
                         </UncontrolledDropdown></Nav>
                   </Navbar>
@@ -226,7 +234,7 @@ const Index = (props) => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Numer of Sensors: 2</h3>
+                    <h3 className="mb-0">Numer of Sensors: 3</h3>
                   </div>
                   <div className="col text-right">
                     <Button
@@ -234,7 +242,7 @@ const Index = (props) => {
                       href="hardware"
                       size="sm"
                     >
-                      See all
+                      See more
                     </Button>
                   </div>
                 </Row>
