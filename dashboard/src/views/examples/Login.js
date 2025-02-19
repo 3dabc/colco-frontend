@@ -44,7 +44,7 @@ const Login = () => {
             <div className="btn-wrapper text-center">
               <Button
                 className="btn-neutral btn-icon"
-                color="default"
+                color="dark-green"
                 href="#pablo"
                 onClick={(e) => e.preventDefault()}
               >
@@ -61,7 +61,7 @@ const Login = () => {
               </Button>
               <Button
                 className="btn-neutral btn-icon"
-                color="default"
+                color="dark-green"
                 href="#pablo"
                 onClick={(e) => e.preventDefault()}
               >

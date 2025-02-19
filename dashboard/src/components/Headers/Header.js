@@ -22,7 +22,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 const Header = () => {
   return (
     <>
-      <div className="header pb-8 pt-5 pt-md-8" style={{backgroundColor: "F5F6FA"}}>
+      <div className="header pb-8 pt-5 pt-md-8" style={{backgroundColor: "023F3a"}}>
         <Container fluid>
           <div className="header-body">
             {/* Card stats */}
