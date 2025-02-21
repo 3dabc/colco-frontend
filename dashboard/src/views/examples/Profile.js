@@ -107,7 +107,7 @@ const Profile = () => {
                       onClick={(e) => e.preventDefault()}
                       size="sm"
                     >
-                      Settings
+                      Edit Account
                     </Button>
                   </Col>
                 </Row>
@@ -193,7 +193,7 @@ const Profile = () => {
                   <hr className="my-4" />
                   {/* Address */}
                   <h6 className="heading-small text-muted mb-4">
-                    Contact information
+                    Farm information
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
