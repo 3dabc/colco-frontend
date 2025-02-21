@@ -344,7 +344,7 @@ let chartTemp = {
       },
     },
   },
-  data1: (canvas) => {
+  1: (canvas) => {
     return {
       labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
@@ -358,7 +358,7 @@ let chartTemp = {
       ],
     };
   },
-  data2: (canvas) => {
+  2: (canvas) => {
     return {
       labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
@@ -370,14 +370,14 @@ let chartTemp = {
       ],
     };
   },
-  data3: (canvas) => {
+  3: (canvas) => {
     return {
       labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
           label: "Performance",
           data: [26, 22, 25, 25, 20, 30, 25, 40],
-          borderColor: "#0095FF",
+          borderColor: "#68C9D2",
         },
       ],
     };
@@ -385,48 +385,48 @@ let chartTemp = {
 };
 
 // Example 2 of Chart inside src/views/Index.js (Total orders - Card)
-let chartExample2 = {
-  options: {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            callback: function (value) {
-              if (!(value % 10)) {
-                //return '$' + value + 'k'
-                return value;
-              }
-            },
-          },
-        },
-      ],
-    },
-    tooltips: {
-      callbacks: {
-        label: function (item, data) {
-          var label = data.datasets[item.datasetIndex].label || "";
-          var yLabel = item.yLabel;
-          var content = "";
-          if (data.datasets.length > 1) {
-            content += label;
-          }
-          content += yLabel;
-          return content;
-        },
-      },
-    },
-  },
-  data: {
-    labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [
-      {
-        label: "Sales",
-        data: [25, 20, 30, 22, 17, 29],
-        maxBarThickness: 10,
-      },
-    ],
-  },
-};
+// let chartExample2 = {
+//   options: {
+//     scales: {
+//       yAxes: [
+//         {
+//           ticks: {
+//             callback: function (value) {
+//               if (!(value % 10)) {
+//                 //return '$' + value + 'k'
+//                 return value;
+//               }
+//             },
+//           },
+//         },
+//       ],
+//     },
+//     tooltips: {
+//       callbacks: {
+//         label: function (item, data) {
+//           var label = data.datasets[item.datasetIndex].label || "";
+//           var yLabel = item.yLabel;
+//           var content = "";
+//           if (data.datasets.length > 1) {
+//             content += label;
+//           }
+//           content += yLabel;
+//           return content;
+//         },
+//       },
+//     },
+//   },
+//   data: {
+//     labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+//     datasets: [
+//       {
+//         label: "Sales",
+//         data: [25, 20, 30, 22, 17, 29],
+//         maxBarThickness: 10,
+//       },
+//     ],
+//   },
+// };
 
 //chart used for Average Humidity
 let chartHumidity = {
@@ -462,7 +462,7 @@ let chartHumidity = {
       },
     },
   },
-  data1: {
+  1: {
     labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
     datasets: [
       {
@@ -474,7 +474,7 @@ let chartHumidity = {
       
     ],
   },
-  data2: {
+  2: {
     labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
     datasets: [
       {
@@ -485,14 +485,14 @@ let chartHumidity = {
       },
     ],
     },
-    data3: {
+    3: {
       labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
       datasets: [
         {
           label: "Sensor 3: ",
           data: [35, 45, 35, 30, 30, 49, 55],
           maxBarThickness: 10,
-          backgroundColor: "#0095FF"
+          backgroundColor: "#68C9D2"
         },
       ],
       }
@@ -500,7 +500,7 @@ let chartHumidity = {
 
 // chart used for pH target vs reality
 let chartPH = {
-  options: {
+  optionsPh: {
    
     scales: {
       yAxes: [
@@ -532,7 +532,7 @@ let chartPH = {
       },
     },
   },
-  data1: {
+  1: {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
     datasets: [
       {
@@ -549,7 +549,7 @@ let chartPH = {
       },
     ],
   },
-  data2: {
+  2: {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
     datasets: [
       {
@@ -566,7 +566,7 @@ let chartPH = {
       },
     ],
   },
-  data3: {
+  3: {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
     datasets: [
       {
@@ -590,7 +590,6 @@ module.exports = {
   chartOptions, // used inside src/views/Index.js
   parseOptions, // used inside src/views/Index.js
   chartTemp, // used inside src/views/Index.js
-  chartExample2, // used inside src/views/Index.js
   chartHumidity,
   chartPH,
 };

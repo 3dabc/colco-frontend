@@ -28,16 +28,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Progress,
-  Table,
   Container,
   Row,
   Col,
@@ -52,38 +42,22 @@ import {
   chartPH,
 } from "variables/charts.js";
 
-import Header from "components/Headers/Header.js";
+import Header from "components/Headers/DashboardHeader.js";
 
 const Index = (props) => {
   //const [activeNav, setActiveNav] = useState(1);
-  const [chartTempData, setChartTempData] = useState(chartTemp.data1);
-
-  const[chartHumidityData, setChartHumidityData] = useState(chartHumidity.data1)
-
-  const[chartPhData, setChartPhData] = useState(chartPH.data1)
+  
+  // toggle which sensor's data is being displayed
+  const [sensor, setSensor] = useState(1)
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
 
-  const toggleTemp = (e, index) => {
-    e.preventDefault();
-    setChartTempData(chartTemp["data" + index]);
-  };
-
-  const toggleHumidity = (e, index) => {
-    e.preventDefault();
-    setChartHumidityData(chartHumidity["data" + index]);
-  };
-
-  const togglePh = (e, index) => {
-    e.preventDefault();
-    setChartPhData(chartPH["data" + index]);
-  };
-
+ 
   return (
     <>
-      <Header />
+      <Header sensor={sensor} setSensor={setSensor}/>
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
@@ -97,27 +71,7 @@ const Index = (props) => {
                     </h6>
                     <h2 className="mb-0">Average Humidity</h2>
                   </div>
-                  <Navbar>
-                    <Nav>
-                      <UncontrolledDropdown nav>
-                        <DropdownToggle >
-                        <span className="mb-0 text-sm font-weight-bold">
-                      Sensors
-                    </span>
-                        </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem onClick={(e) => toggleHumidity(e, 1)}>
-                            <span >1</span>
-                          </DropdownItem>
-                          <DropdownItem  onClick={(e) => toggleHumidity(e, 2)}>
-                            <span >2</span>
-                          </DropdownItem>
-                          <DropdownItem  onClick={(e) => toggleHumidity(e, 3)}>
-                            <span >3</span>
-                          </DropdownItem>
-                        </DropdownMenu>
-                        </UncontrolledDropdown></Nav>
-                  </Navbar>
+                 
                 </Row>
               </CardHeader>
               <CardBody>
@@ -126,8 +80,9 @@ const Index = (props) => {
                 style={{position: "relative",
                         height: "200px"}}>
                   <Bar
-                    data={chartHumidityData}
+                    data={chartHumidity[sensor]}
                     options={chartHumidity.options}
+
                   />
                 </div>
               </CardBody>
@@ -141,29 +96,9 @@ const Index = (props) => {
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
                       Overview
                     </h6>
-                    <h2 className="text-black mb-0">Daily Temperature</h2>
+                    <h2 className="text-black mb-0">Daily Temperature </h2>
                   </div>
-                  <Navbar>
-                    <Nav>
-                      <UncontrolledDropdown nav>
-                        <DropdownToggle >
-                        <span className="mb-0 text-sm font-weight-bold">
-                      Sensors
-                    </span>
-                        </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem  onClick={(e) => toggleTemp(e, 1)}>
-                            <span>1</span>
-                          </DropdownItem>
-                          <DropdownItem  onClick={(e) => toggleTemp(e, 2)}>
-                            <span>2</span>
-                          </DropdownItem>
-                          <DropdownItem  onClick={(e) => toggleTemp(e, 3)}>
-                            <span>3</span>
-                          </DropdownItem>
-                        </DropdownMenu>
-                        </UncontrolledDropdown></Nav>
-                  </Navbar>
+                 
                 </Row>
               </CardHeader>
               <CardBody>
@@ -173,8 +108,8 @@ const Index = (props) => {
                         }
                         }>
                   <Line 
-                    data={chartTempData}
-                    options={chartTemp.options}
+                    data={chartTemp[sensor]}
+                    options={chartTemp[sensor].chartOptions}
                     getDatasetAtEvent={(e) => console.log(e)}
                   />
                 </div>
@@ -191,28 +126,6 @@ const Index = (props) => {
                     </h6>
                     <h2 className="mb-0">Target vs Reality (pH)</h2>
                   </div>
-                  <Navbar>
-                    <Nav>
-                      <UncontrolledDropdown nav>
-                        <DropdownToggle >
-                        <span className="mb-0 text-sm font-weight-bold">
-                      Sensors
-                    </span>
-                        </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem onClick={(e) => togglePh(e, 1)}>
-                            <span>1</span>
-                          </DropdownItem>
-                          <DropdownItem onClick={(e) => togglePh(e, 2)}>
-                            <span>2</span>
-                          </DropdownItem>
-                          <DropdownItem onClick={(e) => togglePh(e, 3)}>
-                            <span>3</span>
-                          </DropdownItem>
-                        </DropdownMenu>
-                        </UncontrolledDropdown></Nav>
-                  </Navbar>
-
                 </Row>
               </CardHeader>
               <CardBody>
@@ -220,8 +133,9 @@ const Index = (props) => {
                 <div style={{position: "relative",
                         height: "200px"}}>
                   <Bar
-                    data={chartPhData}
-                    options={chartPH.options}
+                    data={chartPH[sensor]}
+                    options={chartPH.optionsPh}
+
                   />
                 </div>
               </CardBody>
