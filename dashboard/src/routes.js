@@ -20,6 +20,7 @@ import Profile from "views/examples/Profile.js";
 import Maps from "views/examples/Maps.js";
 import Login from "views/examples/Login.js";
 import Hardware from "views/examples/Hardware.js";
+import Notifications from "views/examples/Notifications.js";
 
 
 var routes = [
@@ -28,6 +29,13 @@ var routes = [
     name: "Dashboard",
     icon: "ni ni-tv-2 text-muted",
     component: <Index />,
+    layout: "/admin",
+  },
+  {
+    path: "/notif",
+    name: "Notifications",
+    icon: "fa-regular fa-bell",
+    component: <Notifications />,
     layout: "/admin",
   },
   {
@@ -56,6 +64,6 @@ var routes = [
     icon: "ni ni-key-25 text-muted",
     component: <Login />,
     layout: "/auth",
-  },
+  } 
 ];
 export default routes;
