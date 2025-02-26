@@ -62,7 +62,7 @@ var routes = [
   {
     path: "/registration",
     name: "Registration",
-    icon: "fa fa-address-card",
+    icon: "fa-regular fa-address-card",
     component: <Register />,
     layout: "/auth",
   },
