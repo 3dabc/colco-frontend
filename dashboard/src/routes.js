@@ -21,6 +21,7 @@ import Maps from "views/examples/Maps.js";
 import Login from "views/examples/Login.js";
 import Hardware from "views/examples/Hardware.js";
 import Notifications from "views/examples/Notifications.js";
+import Register from "views/examples/Register.js";
 
 
 var routes = [
@@ -59,11 +60,18 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/registration",
+    name: "Registration",
+    icon: "fa fa-address-card",
+    component: <Register />,
+    layout: "/auth",
+  },
+  {
     path: "/login",
     name: "Log Out",
     icon: "ni ni-key-25 text-muted",
     component: <Login />,
     layout: "/auth",
-  } 
+  }
 ];
 export default routes;

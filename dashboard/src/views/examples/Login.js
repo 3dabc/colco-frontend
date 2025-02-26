@@ -17,6 +17,7 @@
 */
 
 // reactstrap components
+import { Link } from "react-router-dom";
 import {
   Button,
   Card,
@@ -142,11 +143,10 @@ const Login = () => {
               <small>Forgot password?</small>
             </a>
           </Col>
-          <Col className="text-right" xs="6">
+          <Col className="text-right" xs="6" to="/auth/registration" tag={Link}>
             <a
-              className="text-light"
+              className="text-light" 
               href="#pablo"
-              onClick={(e) => e.preventDefault()}
             >
               <small>Create new account</small>
             </a>
