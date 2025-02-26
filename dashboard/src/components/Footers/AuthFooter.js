@@ -31,7 +31,7 @@ const Login = () => {
                 © {new Date().getFullYear()}{" "}
                 <a
                   className="font-weight-bold ml-1"
-                  href="https://www.creative-tim.com?ref=adr-auth-footer"
+                  href="https://vaishnavisen.dev/colco-ml/data.html"
                   target="_blank"
                 >
                   ColCo
@@ -42,7 +42,7 @@ const Login = () => {
               <Nav className="nav-footer justify-content-center justify-content-xl-end">
                 <NavItem>
                   <NavLink
-                    href="https://www.creative-tim.com?ref=adr-auth-footer"
+                    href="https://vaishnavisen.dev/colco-ml/data.html"
                     target="_blank"
                   >
                     ColCo
@@ -50,7 +50,7 @@ const Login = () => {
                 </NavItem>
                 <NavItem>
                   <NavLink
-                    href="https://www.creative-tim.com/presentation?ref=adr-auth-footer"
+                    href="https://vaishnavisen.dev/colco-ml/teams.html"
                     target="_blank"
                   >
                     About Us
@@ -58,7 +58,7 @@ const Login = () => {
                 </NavItem>
                 <NavItem>
                   <NavLink
-                    href="http://blog.creative-tim.com?ref=adr-auth-footer"
+                    href="https://vaishnavisen.dev/colco-ml/index.html"
                     target="_blank"
                   >
                     Home Page
