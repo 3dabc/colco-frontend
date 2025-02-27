@@ -123,9 +123,86 @@ const Register = () => {
               </FormGroup>
               <div className="text-muted font-italic">
                 <small>
-                  password strength:{" "}
-                  <span className="text-success font-weight-700">strong</span>
+                  <span className="text-success font-weight-700"></span>
                 </small>
+              </div>
+              <hr className="my-4" />
+              {/* Address */}
+              <h6 className="heading-small text-muted mb-4">
+                Farm information
+              </h6>
+              <div className="pl-lg-3">
+                <Row>
+                  <Col md="12">
+                    <FormGroup>
+                      <label
+                        className="form-control-label"
+                        htmlFor="input-address"
+                      >
+                        Address
+                      </label>
+                      <Input
+                        className="form-control-alternative"
+                        defaultValue="Address"
+                        id="input-address"
+                        placeholder="Home Address"
+                        type="text"
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg="4">
+                    <FormGroup>
+                      <label
+                        className="form-control-label"
+                        htmlFor="input-city"
+                      >
+                        City
+                      </label>
+                      <Input
+                        className="form-control-alternative"
+                        defaultValue=""
+                        id="input-city"
+                        placeholder="City"
+                        type="text"
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col lg="4">
+                    <FormGroup>
+                      <label
+                        className="form-control-label"
+                        htmlFor="input-country"
+                      >
+                        Country
+                      </label>
+                      <Input
+                        className="form-control-alternative"
+                        defaultValue=""
+                        id="input-country"
+                        placeholder="Country"
+                        type="text"
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col lg="4">
+                    <FormGroup>
+                      <label
+                        className="form-control-label"
+                        htmlFor="input-country"
+                      >
+                        Postal code
+                      </label>
+                      <Input
+                        className="form-control-alternative"
+                        id="input-postal-code"
+                        placeholder="Postal code"
+                        type="number"
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
               </div>
               <Row className="my-4">
                 <Col xs="12">
@@ -139,19 +216,17 @@ const Register = () => {
                       className="custom-control-label"
                       htmlFor="customCheckRegister"
                     >
-                      <span className="text-muted">
-                        I agree with the{" "}
-                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                          Privacy Policy
-                        </a>
-                      </span>
+                      I agree with the{" "}
+                      <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                        Privacy Policy
+                      </a>
                     </label>
                   </div>
                 </Col>
               </Row>
               <div className="text-center">
                 <Button className="mt-4" color="primary" type="button">
-                  Create account
+                  Welcome
                 </Button>
               </div>
             </Form>
@@ -163,3 +238,4 @@ const Register = () => {
 };
 
 export default Register;
+
