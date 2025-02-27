@@ -364,7 +364,7 @@ let chartTemp = {
       datasets: [
         {
           label: "Performance",
-          data: [0, 20, 5, 25, 10, 30, 15, 40],
+          data: [10, 20, 30, 25, 10, 30, 15, 20],
           borderColor: "#07E098",
         },
       ],

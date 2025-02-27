@@ -24,8 +24,32 @@ import { Card, CardBody, CardTitle, Container, Row, Col, Navbar, Nav,
   
     return (
       <>
+      
         <div className="header pb-8 pt-5 pt-md-8" style={{backgroundColor: "023F3a"}}>
-          <Container fluid>
+        <Container fluid>
+
+        <Row className="align-items-center">
+        <Col lg="3">
+
+        <div className="d-flex align-items-center" style={{padding: "10px" }}>
+
+                  <UncontrolledDropdown>
+                      <DropdownToggle color="white">
+                      <span className="dropdown-menu-arrow" right>
+                          <i class="fa-solid fa-chevron-down"></i>
+                          <span className="text-dark">Sensors</span>
+                      </span>
+                      </DropdownToggle>
+                      <DropdownMenu class="dropdowntime">
+                      {[1,2,3].map((num) => (
+                            <DropdownItem key={num} onClick={() => {setSensor(num)}} >
+                            <span>{num}</span>
+                          </DropdownItem>
+                            ))}
+                  </DropdownMenu>
+                  </UncontrolledDropdown>
+                  </div>
+                  </Col>
             <div className="header-body">
               {/* Card stats */}
               <Row>
@@ -173,49 +197,10 @@ import { Card, CardBody, CardTitle, Container, Row, Col, Navbar, Nav,
                     </CardBody>
                   </Card>
                 </Col>
-                  <Col lg="6" xl="3">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                        <div className="col">
-                          <CardTitle
-                            tag="h5"
-                            className="text-uppercase font-weight-bold mb-0"
-                          >
-                            Sensor
-                          </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">
-                          <Navbar>
-                      <Nav>
-                        <UncontrolledDropdown nav>
-                          <DropdownToggle >
-                          <span className="mb-0 text-sm font-weight-bold">
-                        {sensor}
-                      </span>
-                          </DropdownToggle>
-                          <DropdownMenu>
-                            {[1,2,3].map((num) => (
-                            <DropdownItem key={num} onClick={() => {setSensor(num)}} >
-                            <span>{num}</span>
-                          </DropdownItem>
-                            ))}
-                          </DropdownMenu>
-                          </UncontrolledDropdown></Nav>
-                    </Navbar>
-                          </span>
-                        </div>
-                        <Col className="col-auto">
-                          <div className="icon icon-shape bg-green text-white rounded-circle shadow">
-                            <i className="fa-regular fa-hard-drive" />
-                          </div>
-                        </Col>
-                      </Row>
-                     
-                    </CardBody>
-                  </Card>
-                </Col>
+              
               </Row>
             </div>
+            </Row>
           </Container>
         </div>
       </>
