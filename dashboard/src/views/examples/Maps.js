@@ -30,7 +30,7 @@ const Maps = () => {
     // Dynamically load the Google Maps API script
     const loadGoogleMapsScript = () => {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBkkC3IrTND__pyLYZNo37HMdw9rwkO0rw&callback=initMap`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE`;
       script.async = true;
       script.defer = true;
       document.body.appendChild(script);
@@ -38,7 +38,7 @@ const Maps = () => {
 
     // Initialize the map after the Google Maps API has loaded
     window.initMap = () => {
-      const center = { lat: 5.06690, lng: 75.52272 }; // Example: Sydney, Australia
+      const center = { lat: 5.06690, lng: -75.52272 }; // Manizales, Caldas, Colombia
 
       // Create the map
       const map = new window.google.maps.Map(document.getElementById('map'), {
