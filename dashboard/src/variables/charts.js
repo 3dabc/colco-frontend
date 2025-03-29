@@ -1,14 +1,10 @@
 /*!
 
 =========================================================
-* Argon Dashboard React - v1.2.4
+* Chart.js
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
+* Variables holding data for the dashboard: temperatureData, humidityData, phData
 
 =========================================================
 
@@ -306,9 +302,8 @@ function parseOptions(parent, options) {
   }
 }
 
-// Example 1 of Chart inside src/views/Index.js (Sales value - Card)
-// Used as chart for daily Temperature
-let chartTemp = {
+// Used as chart data for daily Temperature
+let temperatureData = {
   options: {
     scales: {
       yAxes: [
@@ -350,7 +345,7 @@ let chartTemp = {
       datasets: [
         {
           label: "Performance",
-          data: [0, 20, 10, 30, 15, 40, 20, 60],
+          data: [30, 28, 26, 30, 28, 40, 37],
           //backgroundImage: "linear-gradient(to right, #0095FF, #0095FF)",
           borderColor: "#0095FF",
 
@@ -364,7 +359,7 @@ let chartTemp = {
       datasets: [
         {
           label: "Performance",
-          data: [10, 20, 30, 25, 10, 30, 15, 20],
+          data: [30, 22, 30, 25, 30, 30, 22],
           borderColor: "#07E098",
         },
       ],
@@ -376,7 +371,7 @@ let chartTemp = {
       datasets: [
         {
           label: "Performance",
-          data: [26, 22, 25, 25, 20, 30, 25, 40],
+          data: [26, 22, 25, 25, 22, 30, 25],
           borderColor: "#68C9D2",
         },
       ],
@@ -384,52 +379,9 @@ let chartTemp = {
   }
 };
 
-// Example 2 of Chart inside src/views/Index.js (Total orders - Card)
-// let chartExample2 = {
-//   options: {
-//     scales: {
-//       yAxes: [
-//         {
-//           ticks: {
-//             callback: function (value) {
-//               if (!(value % 10)) {
-//                 //return '$' + value + 'k'
-//                 return value;
-//               }
-//             },
-//           },
-//         },
-//       ],
-//     },
-//     tooltips: {
-//       callbacks: {
-//         label: function (item, data) {
-//           var label = data.datasets[item.datasetIndex].label || "";
-//           var yLabel = item.yLabel;
-//           var content = "";
-//           if (data.datasets.length > 1) {
-//             content += label;
-//           }
-//           content += yLabel;
-//           return content;
-//         },
-//       },
-//     },
-//   },
-//   data: {
-//     labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-//     datasets: [
-//       {
-//         label: "Sales",
-//         data: [25, 20, 30, 22, 17, 29],
-//         maxBarThickness: 10,
-//       },
-//     ],
-//   },
-// };
 
-//chart used for Average Humidity
-let chartHumidity = {
+//chart data used for Average Humidity
+let humidityData = {
   options: {
    
     scales: {
@@ -467,7 +419,7 @@ let chartHumidity = {
     datasets: [
       {
         label: "Sensor 1: ",
-        data: [45, 50, 85, 30, 25, 29, 75],
+        data: [80, 85, 78, 82, 88, 90, 84],
         maxBarThickness: 10,
         backgroundColor: "#0095FF"
       },
@@ -479,7 +431,7 @@ let chartHumidity = {
     datasets: [
       {
         label: "Sensor 2: ",
-        data: [25, 45, 95, 30, 10, 29, 75],
+        data: [75, 80, 77, 79, 83, 85, 81],
         maxBarThickness: 10,
         backgroundColor: "#00E096"
       },
@@ -490,7 +442,7 @@ let chartHumidity = {
       datasets: [
         {
           label: "Sensor 3: ",
-          data: [35, 45, 35, 30, 30, 49, 55],
+          data: [82, 87, 84, 86, 89, 91, 85],
           maxBarThickness: 10,
           backgroundColor: "#68C9D2"
         },
@@ -499,7 +451,7 @@ let chartHumidity = {
 };
 
 // chart used for pH target vs reality
-let chartPH = {
+let phData = {
   optionsPh: {
    
     scales: {
@@ -537,13 +489,13 @@ let chartPH = {
     datasets: [
       {
         label: "Sensor 1: ",
-        data: [6, 5, 9, 5, 7, 9, 7],
+        data: [6, 5, 7.5, 5, 7, 7.5, 7],
         maxBarThickness: 10,
         backgroundColor: "#4AB58E"
       },
       {
         label: "Target: ",
-        data: [5, 5, 9, 3, 1, 9, 7],
+        data: [5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5],
         maxBarThickness: 10,
         backgroundColor: "#FFCF00"
       },
@@ -554,13 +506,13 @@ let chartPH = {
     datasets: [
       {
         label: "Sensor 2: ",
-        data: [6, 5, 6, 4, 7, 6, 7],
+        data: [6, 5, 6, 4.5, 7, 6, 7],
         maxBarThickness: 10,
         backgroundColor: "#4AB58E"
       },
       {
         label: "Target: ",
-        data: [5, 5, 9, 3, 1, 9, 7],
+        data: [5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5],
         maxBarThickness: 10,
         backgroundColor: "#FFCF00"
       },
@@ -571,13 +523,13 @@ let chartPH = {
     datasets: [
       {
         label: "Sensor 3: ",
-        data: [8, 6, 6, 7, 8, 8, 7],
+        data: [8, 6, 6, 7, 7.5, 8, 7],
         maxBarThickness: 10,
         backgroundColor: "#4AB58E"
       },
       {
         label: "Target: ",
-        data: [5, 5, 9, 3, 1, 9, 7],
+        data: [5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5],
         maxBarThickness: 10,
         backgroundColor: "#FFCF00"
       },
@@ -589,7 +541,7 @@ let chartPH = {
 module.exports = {
   chartOptions, // used inside src/views/Index.js
   parseOptions, // used inside src/views/Index.js
-  chartTemp, // used inside src/views/Index.js
-  chartHumidity,
-  chartPH,
+  temperatureData, // used inside src/views/Index.js
+  humidityData,
+  phData,
 };

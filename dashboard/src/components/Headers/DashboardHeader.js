@@ -94,7 +94,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col, Navbar, Nav,
                           >
                             Relative Humidity
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">70%</span>
+                          <span className="h2 font-weight-bold mb-0">77%</span>
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -122,7 +122,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col, Navbar, Nav,
                           >
                             Temperature
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">86°F</span>
+                          <span className="h2 font-weight-bold mb-0">35°C</span>
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -150,7 +150,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col, Navbar, Nav,
                           >
                             Light Intensity
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">1,500 lx</span>
+                          <span className="h2 font-weight-bold mb-0">5,561 lx</span>
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -179,7 +179,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col, Navbar, Nav,
                             Soil pH
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            3.4
+                            5.4
                           </span>
                         </div>
                         <Col className="col-auto">
