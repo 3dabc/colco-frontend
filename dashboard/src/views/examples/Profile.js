@@ -129,7 +129,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Username"
                             id="input-username"
                             placeholder="Username"
                             type="text"
@@ -164,7 +163,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="First name"
                             id="input-first-name"
                             placeholder="First name"
                             type="text"
@@ -181,7 +179,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Last name"
                             id="input-last-name"
                             placeholder="Last name"
                             type="text"
@@ -207,9 +204,8 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Address"
                             id="input-address"
-                            placeholder="Home Address"
+                            placeholder="Address"
                             type="text"
                           />
                         </FormGroup>
@@ -226,7 +222,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue=""
                             id="input-city"
                             placeholder="City"
                             type="text"
@@ -243,7 +238,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue=""
                             id="input-country"
                             placeholder="Country"
                             type="text"
