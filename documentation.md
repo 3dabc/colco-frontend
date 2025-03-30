@@ -19,7 +19,7 @@ Contains:
 The `index.html` file serves as the main HTML template for the ColCo frontend application. It provides the static structure for the React application. This file is essential for rendering the app and includes metadata, external resources, and a placeholder for React components.
 
 React Root Element:
-`<div id="root"></div>`: The placeholder where React renders the app.
+`<div id="root"></div>`: The placeholder where React renders the app.\
 Important Note:
 The Google Maps API key is exposed in the working map version of this file, it needs to be secured and call on the key in the env file instead.
 
@@ -47,9 +47,11 @@ Components contains the main navigation components of the front end. \
 - `DashboardHeader.js` contains the 5 data cards that display each metric of collected data as well as a dropdown menu to toggle between the sensor data for the visualizations located on the main Dashboard. 
 - `Header.js` contains the same cards but without the sensor dropdown menu and is implemented on pages Maps and Hardware. 
 - `UserHeader.js` is a plain header without any sensor data and is implemented in pages Notifications and User Profile. \
+
 <b>Navbars</b>
 - `AdminNavbar.js` is the code for the upper right horizontal navigation bar on the inner app pages that contains the search bar, notification button, and user button. The notification button has a drop down that takes you to the Notifications page. The user button has a drop down that takes you to the User Profile page, Settings(currently the same as the User Profile page), and Logout option that takes you to the login page. 
 - `AuthNavbar.js` is the upper navigation bar for the login/registration (authentication) pages and contains the Colco logo, link to dashboard, account registration, login, and user profile. \
+
 <b>Sidebar</b> 
 - `Sidebar.js` renders all routes enlisted in `routes.js`. Sidebar is not directly editable from this file. Any changes to sidebar must be done in `routes.js`. 
 
@@ -63,6 +65,7 @@ Components contains the main navigation components of the front end. \
 ### views 
 The views folder contains a folder named examples with the main javascript files for the pages of the website along with one of the two `Index.js` files. 
 - `Index.js` also known as the Dashboard page, creates the cards for each data visualization chart and calls the hardcoded sensor data. It also creates cards to indicate number of sensors with link to Hardware connectivity page and a link to sensor locations on the Map. Note: Dashboard is known as Index in `routes.js`.\
+
 <b>examples</b> 
 - `Hardware.js` codes the Hardware page linked on the sidebar. Integrating `Header.js` for the sensor data and a hardcoded table displaying the connectivity and location of each sensor. 
 - `Icons.js` is remaining from the original template. It contained various icons available for use, desired icons can be found at fontawesome.com. This page can be thrown away in refactoring. 
