@@ -42,6 +42,7 @@ Components contains the main navigation components of the front end. \
 <b>Footers </b>
 - `AdminFooter.js` contains the footer links for the dashboard and inner app pages. Each link directs to pages of ML team's website aside from MIT License which is unchanged from the original template and leads to the Creative Tim Github licensing page. 
 - `AuthFooter.js` contains the same links but solely display on the login page with slight modification to styling. These pages can be merged for refactoring and simplicity. \
+
 <b>Headers </b>
 - `DashboardHeader.js` contains the 5 data cards that display each metric of collected data as well as a dropdown menu to toggle between the sensor data for the visualizations located on the main Dashboard. 
 - `Header.js` contains the same cards but without the sensor dropdown menu and is implemented on pages Maps and Hardware. 
