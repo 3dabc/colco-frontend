@@ -16,7 +16,7 @@
 
 */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // reactstrap components
 import { Card, Container, Row } from "reactstrap";
@@ -25,12 +25,15 @@ import { Card, Container, Row } from "reactstrap";
 import Header from "components/Headers/Header.js";
 
 
+  // const coordinates = [];
+  // const setCoordinates = useState(null);
+
 const Maps = () => {
   useEffect(() => {
     // Dynamically load the Google Maps API script
     const loadGoogleMapsScript = () => {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&callback=initMap`;
       script.async = true;
       script.defer = true;
       document.body.appendChild(script);
