@@ -29,10 +29,25 @@ import {
   Row,
   Col,
 } from "reactstrap";
+// import React, { useState } from "react";
+// import axios from "axios";
+
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
 
 const Profile = () => {
+  // const [profileData, setProfileData] = useState(null);
+  // useEffect(() => {
+  //   //example API call to fetch user profile data
+  //   axios
+  //     .get("https://api.example.com/user/profile")
+  //     .then((response) => {
+  //       setProfileData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching profile data:", error);
+  //     });
+  // }, []);
   return (
     <>
       <UserHeader />

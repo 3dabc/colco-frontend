@@ -16,6 +16,10 @@
 
 */
 import { useState } from "react";
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+
+
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -45,8 +49,132 @@ import {
   chartHumidity,
   chartPH,
 } from "variables/charts.js";
+// import { chartOptions, generateChartData } from "variables/charts.js";
 
 import Header from "components/Headers/DashboardHeader.js";
+
+// const Index = () => {
+  // const [sensor, setSensor] = useState(1);
+  // const [humidityData, setHumidityData] = useState(null);
+  // const [temperatureData, setTemperatureData] = useState(null);
+  // const [phData, setPhData] = useState(null);
+
+  // useEffect(() => {
+  //   // Fetch data for humidity
+  //   axios
+  //     .get(`${process.env.REACT_APP_API_URL}/dashboard/humidity`)
+  //     .then((response) => {
+  //       const { labels, data } = response.data;
+  //       setHumidityData(
+  //         generateChartData(labels, data, "Humidity", "rgba(75,192,192,0.4)", "rgba(75,192,192,1)")
+  //       );
+  //     })
+  //     .catch((error) => console.error("Error fetching humidity data:", error));
+
+  //   // Fetch data for temperature
+  //   axios
+  //     .get(`${process.env.REACT_APP_API_URL}/dashboard/temperature`)
+  //     .then((response) => {
+  //       const { labels, data } = response.data;
+  //       setTemperatureData(
+//     generateChartData(labels, data, "Temperature", "rgba(255,99,132,0.4)", "rgba(255,99,132,1)")
+//   );
+// })
+// .catch((error) => console.error("Error fetching temperature data:", error));
+
+    // // Fetch data for pH
+    // axios
+    // .get(`${process.env.REACT_APP_API_URL}/dashboard/ph`)
+    // .then((response) => {
+    //   const { labels, data } = response.data;
+    //   setPhData(
+    //     generateChartData(labels, data, "pH", "rgba(54,162,235,0.4)", "rgba(54,162,235,1)")
+    //   );
+    // })
+    // .catch((error) => console.error("Error fetching pH data:", error));
+    // }, []);
+
+// return (
+// <>
+// <Header sensor={sensor} setSensor={setSensor} />
+// <Container className="mt--7" fluid>
+//   <Row>
+//     <Col xl="4">
+//       <Card className="shadow">
+//         <CardHeader className="bg-transparent">
+//           <Row className="align-items-center">
+  {/*           <div className="col">
+                  <h6 className="text-uppercase text-muted ls-1 mb-1">
+                    Performance
+                  </h6>
+                  <h2 className="mb-0">Average Humidity</h2>
+                </div>
+              </Row>
+            </CardHeader>
+            <CardBody>
+              <div style={{ position: "relative", height: "200px" }}>
+                {humidityData ? (
+                    <Bar data={humidityData} options={chartOptions()} />
+                  ) : (
+                    <p>Loading...</p>
+                  )}
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col xl="4">
+            <Card className="shadow">
+              <CardHeader className="bg-transparent">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h6 className="text-uppercase text-muted ls-1 mb-1">
+                      Overview
+                    </h6>
+                    <h2 className="mb-0">Daily Temperature</h2>
+                  </div>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div style={{ position: "relative", height: "200px" }}>
+                  {temperatureData ? (
+                    <Line data={temperatureData} options={chartOptions()} />
+                  ) : (
+                    <p>Loading...</p>
+                  )}
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col xl="4">
+           <Card className="shadow">
+              <CardHeader className="bg-transparent">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h6 className="text-uppercase text-muted ls-1 mb-1">
+                      Performance
+                    </h6>
+                    <h2 className="mb-0">Target vs Reality (pH)</h2>
+                  </div>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div style={{ position: "relative", height: "200px" }}>
+                  {phData ? (
+                    <Bar data={phData} options={chartOptions()} />
+                  ) : (
+                    <p>Loading...</p>
+                  )}
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
+};
+
+export default Index;*/}
 
 const Index = (props) => {
   //const [activeNav, setActiveNav] = useState(1);
@@ -165,61 +293,6 @@ const Index = (props) => {
                   </div>
                 </Row>
               </CardHeader>
-              {/* <Table className="align-items-center table-flush" responsive>
-                <thead className="thead-light">
-                  <tr>
-                    <th scope="col">Page name</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col">Unique users</th>
-                    <th scope="col">Bounce rate</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">/argon/</th>
-                    <td>4,569</td>
-                    <td>340</td>
-                    <td>
-                      <i className="fas fa-arrow-up text-success mr-3" /> 46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">/argon/index.html</th>
-                    <td>3,985</td>
-                    <td>319</td>
-                    <td>
-                      <i className="fas fa-arrow-down text-warning mr-3" />{" "}
-                      46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">/argon/charts.html</th>
-                    <td>3,513</td>
-                    <td>294</td>
-                    <td>
-                      <i className="fas fa-arrow-down text-warning mr-3" />{" "}
-                      36,49%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">/argon/tables.html</th>
-                    <td>2,050</td>
-                    <td>147</td>
-                    <td>
-                      <i className="fas fa-arrow-up text-success mr-3" /> 50,87%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">/argon/profile.html</th>
-                    <td>1,795</td>
-                    <td>190</td>
-                    <td>
-                      <i className="fas fa-arrow-down text-danger mr-3" />{" "}
-                      46,53%
-                    </td>
-                  </tr>
-                </tbody>
-              </Table> */}
             </Card>
           </Col>
           <Col xl="4">
@@ -240,93 +313,6 @@ const Index = (props) => {
                   </div>
                 </Row>
               </CardHeader>
-              {/* <Table className="align-items-center table-flush" responsive>
-                <thead className="thead-light">
-                  <tr>
-                    <th scope="col">Referral</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col" />
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Facebook</th>
-                    <td>1,480</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">60%</span>
-                        <div>
-                          <Progress
-                            max="100"
-                            value="60"
-                            barClassName="bg-gradient-danger"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Facebook</th>
-                    <td>5,480</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">70%</span>
-                        <div>
-                          <Progress
-                            max="100"
-                            value="70"
-                            barClassName="bg-gradient-success"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Google</th>
-                    <td>4,807</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">80%</span>
-                        <div>
-                          <Progress max="100" value="80" />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Instagram</th>
-                    <td>3,678</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">75%</span>
-                        <div>
-                          <Progress
-                            max="100"
-                            value="75"
-                            barClassName="bg-gradient-info"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">twitter</th>
-                    <td>2,645</td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <span className="mr-2">30%</span>
-                        <div>
-                          <Progress
-                            max="100"
-                            value="30"
-                            barClassName="bg-gradient-warning"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table> */}
             </Card>
           </Col>
         </Row>
