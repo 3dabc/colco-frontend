@@ -19,7 +19,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
-// import { AuthProvider } from "./contexts/AuthContext"; // Import the AuthProvider
+import { AuthProvider } from "./contexts/AuthContext"; // Import the AuthProvider
 
 import "assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -31,7 +31,7 @@ import AuthLayout from "layouts/Auth.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  // <AuthProvider> 
+  <AuthProvider> 
     <BrowserRouter>
       <Routes>
         <Route path="/admin/*" element={<AdminLayout />} />
@@ -39,5 +39,5 @@ root.render(
         <Route path="*" element={<Navigate to="/admin/index" replace />} />
       </Routes>
     </BrowserRouter>
-  // </AuthProvider>
+  </AuthProvider>
 );
