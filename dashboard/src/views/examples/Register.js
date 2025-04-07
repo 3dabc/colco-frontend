@@ -80,14 +80,14 @@ const Register = () => {
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
             <div className="text-center text-muted mb-4">
-              <small>Or sign up with credentials</small>
+              <small>Or</small>
             </div>
             <Form role="form">
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
                   <InputGroupAddon addonType="prepend">
                     <InputGroupText>
-                      <i className="ni ni-hat-3" />
+                    <i class="fa-solid fa-user"></i>
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input placeholder="Name" type="text" />
@@ -129,7 +129,7 @@ const Register = () => {
               <hr className="my-4" />
               {/* Address */}
               <h6 className="heading-small text-muted mb-4">
-                Farm information
+                Farm information (Optional)
               </h6>
               <div className="pl-lg-3">
                 <Row>
@@ -143,9 +143,8 @@ const Register = () => {
                       </label>
                       <Input
                         className="form-control-alternative"
-                        defaultValue="Address"
                         id="input-address"
-                        placeholder="Home Address"
+                        placeholder="Address"
                         type="text"
                       />
                     </FormGroup>
@@ -226,7 +225,7 @@ const Register = () => {
               </Row>
               <div className="text-center">
                 <Button className="mt-4" color="primary" type="button">
-                  Welcome
+                  Register
                 </Button>
               </div>
             </Form>

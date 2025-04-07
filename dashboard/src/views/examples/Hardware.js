@@ -1,9 +1,42 @@
-import React from 'react'
-import { Container , Row, Col, Card, CardHeader, Table, Button } from "reactstrap"
+import React from 'react';
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+import { Container , Row, Col, Card, CardHeader, Table, Button } from "reactstrap";
 import Header from "components/Headers/Header.js";
  
 const Hardware = () => {
+    // const[hardwareData, setHardwareData] = useState([]);
+    // useEffect(() => {   
+    //     axios
+    //     .get(`${process.env.REACT_APP_API_URL}/hardware`)
+    //     .then((response) => {
+    //         setHardwareData(response.data);
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error fetching hardware data:", error);
+    //     });
+    // }, []);
   return (
+//     <div>
+//       <table>
+//         <thead>
+//           <tr>
+//             <th>Device</th>
+//             <th>Status</th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {hardwareData.map((device, index) => (
+//             <tr key={index}>
+//               <td>{device.name}</td>
+//               <td>{device.status}</td>
+//             </tr>
+//           ))}
+//         </tbody>
+//       </table>
+//     </div>
+//   );
+// };
     <div>
         <Header />
         <Container>
@@ -52,4 +85,4 @@ const Hardware = () => {
   )
 }
 
-export default Hardware
+export default Hardware;

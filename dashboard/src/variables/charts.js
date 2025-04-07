@@ -12,10 +12,63 @@
 
 */
 const Chart = require("chart.js");
-//
+
 // Chart extension for making the bars rounded
 // Code from: https://codepen.io/jedtrow/full/ygRYgo
-//
+
+// // Chart.js global options
+// function chartOptions() {
+//   return {
+//     responsive: true,
+//     maintainAspectRatio: false,
+//     legend: {
+//       display: false,
+//     },
+//     tooltips: {
+//       enabled: true,
+//       mode: "index",
+//       intersect: false,
+//     },
+//     scales: {
+//       yAxes: [
+//         {
+//           gridLines: {
+//             color: "#e9ecef",
+//             zeroLineColor: "#e9ecef",
+//           },
+//           ticks: {
+//             beginAtZero: true,
+//           },
+//         },
+//       ],
+//       xAxes: [
+//         {
+//   gridLines: {
+//     display: false,
+//   },
+// },
+// ],
+// },
+// };
+// }
+
+// // Function to generate chart data dynamically
+// function generateChartData(labels, data, label, backgroundColor, borderColor) {
+// return {
+// labels: labels,
+// datasets: [
+// {
+// label: label,
+// data: data,
+// backgroundColor: backgroundColor,
+// borderColor: borderColor,
+// borderWidth: 1,
+// },
+// ],
+// };
+// }
+
+// export { chartOptions, generateChartData };
 
 Chart.elements.Rectangle.prototype.draw = function () {
   var ctx = this._chart.ctx;

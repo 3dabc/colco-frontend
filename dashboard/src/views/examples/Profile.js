@@ -29,10 +29,25 @@ import {
   Row,
   Col,
 } from "reactstrap";
+// import React, { useState } from "react";
+// import axios from "axios";
+
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
 
 const Profile = () => {
+  // const [profileData, setProfileData] = useState(null);
+  // useEffect(() => {
+  //   //example API call to fetch user profile data
+  //   axios
+  //     .get("https://api.example.com/user/profile")
+  //     .then((response) => {
+  //       setProfileData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching profile data:", error);
+  //     });
+  // }, []);
   return (
     <>
       <UserHeader />
@@ -129,7 +144,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Username"
                             id="input-username"
                             placeholder="Username"
                             type="text"
@@ -164,7 +178,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="First name"
                             id="input-first-name"
                             placeholder="First name"
                             type="text"
@@ -181,7 +194,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Last name"
                             id="input-last-name"
                             placeholder="Last name"
                             type="text"
@@ -207,9 +219,8 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Address"
                             id="input-address"
-                            placeholder="Home Address"
+                            placeholder="Address"
                             type="text"
                           />
                         </FormGroup>
@@ -226,7 +237,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue=""
                             id="input-city"
                             placeholder="City"
                             type="text"
@@ -243,7 +253,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue=""
                             id="input-country"
                             placeholder="Country"
                             type="text"

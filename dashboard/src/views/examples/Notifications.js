@@ -1,9 +1,31 @@
 import React from 'react'
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
 import { Container , Row, Col, Card, CardHeader, Table, Button, UncontrolledDropdown, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap"
 import UserHeader from "components/Headers/UserHeader.js";
  
 const Notifications = () => {
+    // const [notifications, setNotifications] = useState([]);
+    // useEffect(() => {
+    //     axios
+    //     .get(`${process.env.REACT_APP_API_URL}/notifications`)
+    //     .then((response) => {
+    //         setNotifications(response.data);
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error fetching notifications:", error);
+    //     });     
+    // }, []);
   return (
+//     <div>
+//     {notifications.map((notification, index) => (
+//       <div key={index}>
+//         <p>{notification.message}</p>
+//       </div>
+//     ))}
+//   </div>
+// );
+// };
     <div>
         <UserHeader />
         <Container className="mt--9">
@@ -35,4 +57,4 @@ const Notifications = () => {
   )
 }
 
-export default Notifications
+export default Notifications;

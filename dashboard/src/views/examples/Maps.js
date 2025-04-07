@@ -16,7 +16,8 @@
 
 */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
 
 // reactstrap components
 import { Card, Container, Row } from "reactstrap";
@@ -25,12 +26,47 @@ import { Card, Container, Row } from "reactstrap";
 import Header from "components/Headers/Header.js";
 
 
+
 const Maps = () => {
+  // <Header />
+  // const [coordinates, setCoordinates] = useState([]);
+
   useEffect(() => {
+  //   axios 
+  //   .get(`${process.env.REACT_APP_MAPS_API_KEY}/coordinates`)
+  //   .then((response) => {
+  //     setCoordinates(response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error fetching coordinates:", error);
+  //   });
+  // }, []);
+
+//   useEffect(() => {
+//     if (coordinates.length > 0) {
+//       //Create the map 
+//       const map = new window.google.maps.Map(document.getElementById("map"), {
+//         zoom: 8,
+//         center: coordinates[0],
+//       });
+
+//       coordinates.forEach((coordinate) => {
+//         new window.google.maps.Marker({
+//           position: coordinate,
+//           map: map,
+//           title: coordinate.name,
+//         });
+//       });
+//     }
+//   }, [coordinates]);
+
+//   return <div id="map" style={{ height: "600px", width: "100%"}}/>;
+// };
+
     // Dynamically load the Google Maps API script
     const loadGoogleMapsScript = () => {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&callback=initMap`;
       script.async = true;
       script.defer = true;
       document.body.appendChild(script);
@@ -166,3 +202,4 @@ const Maps2 = () => {
 };
 
 export default Maps2;
+// export default Maps;
