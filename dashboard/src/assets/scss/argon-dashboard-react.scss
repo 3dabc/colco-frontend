@@ -1,3 +1,7 @@
+@import "argon-dashboard/custom/functions";
+@import "argon-dashboard/custom/variables";
+@import "argon-dashboard/custom/mixins";
+
 /*!
 
 =========================================================
@@ -18,9 +22,6 @@
 
 // Core
 
-@import "argon-dashboard/custom/functions";
-@import "argon-dashboard/custom/variables";
-@import "argon-dashboard/custom/mixins";
 
 // bootstrap (4.6.0) components
 
