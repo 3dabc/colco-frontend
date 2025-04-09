@@ -17,8 +17,7 @@
 */
 
 // reactstrap components
-import { Card, CardBody, CardTitle, Container, Row, Col, Navbar, Nav, 
-    UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
   
   const DashboardHeader = ({sensor, setSensor}) => {
   

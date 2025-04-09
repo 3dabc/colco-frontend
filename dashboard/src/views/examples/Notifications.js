@@ -1,7 +1,7 @@
 import React from 'react'
 // import React, { useEffect, useState } from "react";
 // import axios from "axios";
-import { Container , Row, Col, Card, CardHeader, Table, Button, UncontrolledDropdown, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap"
+import { Container ,  Card, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap"
 import UserHeader from "components/Headers/UserHeader.js";
  
 const Notifications = () => {

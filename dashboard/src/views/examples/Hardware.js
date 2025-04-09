@@ -1,7 +1,7 @@
 import React from 'react';
 // import React, { useEffect, useState } from "react";
 // import axios from "axios";
-import { Container , Row, Col, Card, CardHeader, Table, Button } from "reactstrap";
+import { Container , Card, CardHeader, Table, Button } from "reactstrap";
 import Header from "components/Headers/Header.js";
  
 const Hardware = () => {
