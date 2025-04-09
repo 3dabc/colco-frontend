@@ -18,9 +18,15 @@
 
 // Core
 
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+// Then Argon custom stuff
 @import "argon-dashboard/custom/functions";
 @import "argon-dashboard/custom/variables";
 @import "argon-dashboard/custom/mixins";
+
 
 // bootstrap (4.6.0) components
 
