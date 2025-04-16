@@ -15,7 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+
+import React, { useEffect } from 'react';
+// import axios from 'axios';
 
 // reactstrap components
 import { Card, Container, Row } from "reactstrap";
@@ -23,16 +25,85 @@ import { Card, Container, Row } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 
+
+
+const Maps = () => {
+  // <Header />
+  // const [coordinates, setCoordinates] = useState([]);
+
+  useEffect(() => {
+  //   axios 
+  //   .get(`${process.env.REACT_APP_MAPS_API_KEY}/coordinates`)
+  //   .then((response) => {
+  //     setCoordinates(response.data);
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error fetching coordinates:", error);
+  //   });
+  // }, []);
+
+//   useEffect(() => {
+//     if (coordinates.length > 0) {
+//       //Create the map 
+//       const map = new window.google.maps.Map(document.getElementById("map"), {
+//         zoom: 8,
+//         center: coordinates[0],
+//       });
+
+//       coordinates.forEach((coordinate) => {
+//         new window.google.maps.Marker({
+//           position: coordinate,
+//           map: map,
+//           title: coordinate.name,
+//         });
+//       });
+//     }
+//   }, [coordinates]);
+
+//   return <div id="map" style={{ height: "600px", width: "100%"}}/>;
+// };
+
+    // Dynamically load the Google Maps API script
+    const loadGoogleMapsScript = () => {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&callback=initMap`;
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    };
+
+    // Initialize the map after the Google Maps API has loaded
+    window.initMap = () => {
+      const center = { lat: 5.06690, lng: -75.52272 }; // Manizales, Caldas, Colombia
+
+      // Create the map
+      const map = new window.google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+      });
+
+      // Create a marker
+      new window.google.maps.Marker({
+        position: center,
+        map: map,
+        title: "Hello World!",
+      });
+    };
+
+    loadGoogleMapsScript(); // Load the Google Maps API script
+  }, []);
+}
+
 const MapWrapper = () => {
   const mapRef = React.useRef(null);
   React.useEffect(() => {
     let google = window.google;
     let map = mapRef.current;
-    let lat = "40.748817";
-    let lng = "-73.985428";
+    let lat = "5.0630";
+    let lng = "-75.5028";
     const myLatlng = new google.maps.LatLng(lat, lng);
     const mapOptions = {
-      zoom: 12,
+      zoom: 14,
       center: myLatlng,
       scrollwheel: false,
       zoomControl: true,
@@ -86,12 +157,11 @@ const MapWrapper = () => {
       position: myLatlng,
       map: map,
       animation: google.maps.Animation.DROP,
-      title: "Light Bootstrap Dashboard PRO React!",
+      title: "Manizales, Caldas, Colombia",
     });
 
     const contentString =
-      '<div class="info-window-content"><h2>Light Bootstrap Dashboard PRO React</h2>' +
-      "<p>A premium Admin for React-Bootstrap, Bootstrap, React, and React Hooks.</p></div>";
+      '<div class="info-window-content"><h2>Manizales, Caldas, Colombia</h2>';
 
     const infowindow = new google.maps.InfoWindow({
       content: contentString,
@@ -113,7 +183,7 @@ const MapWrapper = () => {
   );
 };
 
-const Maps = () => {
+const Maps2 = () => {
   return (
     <>
       <Header />
@@ -131,4 +201,5 @@ const Maps = () => {
   );
 };
 
-export default Maps;
+export default Maps2;
+// export default Maps;

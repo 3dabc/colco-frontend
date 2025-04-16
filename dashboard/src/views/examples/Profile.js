@@ -29,10 +29,25 @@ import {
   Row,
   Col,
 } from "reactstrap";
+// import React, { useState } from "react";
+// import axios from "axios";
+
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
 
 const Profile = () => {
+  // const [profileData, setProfileData] = useState(null);
+  // useEffect(() => {
+  //   //example API call to fetch user profile data
+  //   axios
+  //     .get("https://api.example.com/user/profile")
+  //     .then((response) => {
+  //       setProfileData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching profile data:", error);
+  //     });
+  // }, []);
   return (
     <>
       <UserHeader />
@@ -48,32 +63,15 @@ const Profile = () => {
                       <img
                         alt="..."
                         className="rounded-circle"
-                        src={require("../../assets/img/theme/team-4-800x800.jpg")}
+                        src={require("../../assets/img/theme/user profile.jpg")}
                       />
                     </a>
                   </div>
                 </Col>
               </Row>
-              <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4 bg-white">
                 <div className="d-flex justify-content-between">
-                  <Button
-                    className="mr-4"
-                    color="info"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Connect
-                  </Button>
-                  <Button
-                    className="float-right"
-                    color="default"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Message
-                  </Button>
+                 
                 </div>
               </CardHeader>
               <CardBody className="pt-0 pt-md-4">
@@ -81,45 +79,30 @@ const Profile = () => {
                   <div className="col">
                     <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                       <div>
-                        <span className="heading">22</span>
-                        <span className="description">Friends</span>
-                      </div>
-                      <div>
-                        <span className="heading">10</span>
-                        <span className="description">Photos</span>
-                      </div>
-                      <div>
-                        <span className="heading">89</span>
-                        <span className="description">Comments</span>
+                    
                       </div>
                     </div>
                   </div>
                 </Row>
                 <div className="text-center">
                   <h3>
-                    Jessica Jones
-                    <span className="font-weight-light">, 27</span>
+                
+                    <span className="font-weight-"> </span>
                   </h3>
                   <div className="h5 font-weight-300">
-                    <i className="ni location_pin mr-2" />
-                    Bucharest, Romania
+                
+                  
                   </div>
                   <div className="h5 mt-4">
-                    <i className="ni business_briefcase-24 mr-2" />
-                    Solution Manager - Creative Tim Officer
-                  </div>
-                  <div>
-                    <i className="ni education_hat mr-2" />
-                    University of Computer Science
+                
+                  
                   </div>
                   <hr className="my-4" />
                   <p>
-                    Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                    Nick Murphy — writes, performs and records all of his own
-                    music.
+                  
                   </p>
                   <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                    Show more
+                
                   </a>
                 </div>
               </CardBody>
@@ -139,7 +122,7 @@ const Profile = () => {
                       onClick={(e) => e.preventDefault()}
                       size="sm"
                     >
-                      Settings
+                      Edit Account
                     </Button>
                   </Col>
                 </Row>
@@ -161,14 +144,13 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="lucky.jesse"
                             id="input-username"
                             placeholder="Username"
                             type="text"
                           />
                         </FormGroup>
                       </Col>
-                      <Col lg="6">
+                      <Col lg="5">
                         <FormGroup>
                           <label
                             className="form-control-label"
@@ -179,7 +161,7 @@ const Profile = () => {
                           <Input
                             className="form-control-alternative"
                             id="input-email"
-                            placeholder="jesse@example.com"
+                            placeholder="Email"
                             type="email"
                           />
                         </FormGroup>
@@ -196,7 +178,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Lucky"
                             id="input-first-name"
                             placeholder="First name"
                             type="text"
@@ -213,7 +194,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Jesse"
                             id="input-last-name"
                             placeholder="Last name"
                             type="text"
@@ -225,7 +205,7 @@ const Profile = () => {
                   <hr className="my-4" />
                   {/* Address */}
                   <h6 className="heading-small text-muted mb-4">
-                    Contact information
+                    Farm information
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
@@ -239,9 +219,8 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                             id="input-address"
-                            placeholder="Home Address"
+                            placeholder="Address"
                             type="text"
                           />
                         </FormGroup>
@@ -258,7 +237,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="New York"
                             id="input-city"
                             placeholder="City"
                             type="text"
@@ -275,7 +253,6 @@ const Profile = () => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="United States"
                             id="input-country"
                             placeholder="Country"
                             type="text"
@@ -300,22 +277,7 @@ const Profile = () => {
                       </Col>
                     </Row>
                   </div>
-                  <hr className="my-4" />
-                  {/* Description */}
-                  <h6 className="heading-small text-muted mb-4">About me</h6>
-                  <div className="pl-lg-4">
-                    <FormGroup>
-                      <label>About Me</label>
-                      <Input
-                        className="form-control-alternative"
-                        placeholder="A few words about you ..."
-                        rows="4"
-                        defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                        Open Source."
-                        type="textarea"
-                      />
-                    </FormGroup>
-                  </div>
+                
                 </Form>
               </CardBody>
             </Card>

@@ -1,14 +1,10 @@
 /*!
 
 =========================================================
-* Argon Dashboard React - v1.2.4
+* Chart.js
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
+* Variables holding data for the dashboard: temperatureData, humidityData, phData
 
 =========================================================
 
@@ -16,10 +12,63 @@
 
 */
 const Chart = require("chart.js");
-//
+
 // Chart extension for making the bars rounded
 // Code from: https://codepen.io/jedtrow/full/ygRYgo
-//
+
+// // Chart.js global options
+// function chartOptions() {
+//   return {
+//     responsive: true,
+//     maintainAspectRatio: false,
+//     legend: {
+//       display: false,
+//     },
+//     tooltips: {
+//       enabled: true,
+//       mode: "index",
+//       intersect: false,
+//     },
+//     scales: {
+//       yAxes: [
+//         {
+//           gridLines: {
+//             color: "#e9ecef",
+//             zeroLineColor: "#e9ecef",
+//           },
+//           ticks: {
+//             beginAtZero: true,
+//           },
+//         },
+//       ],
+//       xAxes: [
+//         {
+//   gridLines: {
+//     display: false,
+//   },
+// },
+// ],
+// },
+// };
+// }
+
+// // Function to generate chart data dynamically
+// function generateChartData(labels, data, label, backgroundColor, borderColor) {
+// return {
+// labels: labels,
+// datasets: [
+// {
+// label: label,
+// data: data,
+// backgroundColor: backgroundColor,
+// borderColor: borderColor,
+// borderWidth: 1,
+// },
+// ],
+// };
+// }
+
+// export { chartOptions, generateChartData };
 
 Chart.elements.Rectangle.prototype.draw = function () {
   var ctx = this._chart.ctx;
@@ -167,7 +216,7 @@ var colors = {
   },
   theme: {
     default: "#172b4d",
-    primary: "#5e72e4",
+    primary: "#023F3A",
     secondary: "#f4f5f7",
     info: "#11cdef",
     success: "#2dce89",
@@ -207,12 +256,12 @@ function chartOptions() {
         elements: {
           point: {
             radius: 0,
-            backgroundColor: colors.theme["primary"],
+            backgroundColor: colors.theme["info"],
           },
           line: {
             tension: 0.4,
             borderWidth: 4,
-            borderColor: colors.theme["primary"],
+            borderColor: colors.theme["info"],
             backgroundColor: colors.transparent,
             borderCapStyle: "rounded",
           },
@@ -220,7 +269,7 @@ function chartOptions() {
             backgroundColor: colors.theme["warning"],
           },
           arc: {
-            backgroundColor: colors.theme["primary"],
+            backgroundColor: colors.theme["info"],
             borderColor: mode === "dark" ? colors.gray[800] : colors.white,
             borderWidth: 4,
           },
@@ -306,8 +355,8 @@ function parseOptions(parent, options) {
   }
 }
 
-// Example 1 of Chart inside src/views/Index.js (Sales value - Card)
-let chartExample1 = {
+// Used as chart data for daily Temperature
+let temperatureData = {
   options: {
     scales: {
       yAxes: [
@@ -319,7 +368,7 @@ let chartExample1 = {
           ticks: {
             callback: function (value) {
               if (!(value % 10)) {
-                return "$" + value + "k";
+                return value + "°F";
               }
             },
           },
@@ -337,48 +386,67 @@ let chartExample1 = {
             content += label;
           }
 
-          content += "$" + yLabel + "k";
+          content += yLabel + "°F";
           return content;
         },
       },
     },
   },
-  data1: (canvas) => {
+  1: (canvas) => {
     return {
-      labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
           label: "Performance",
-          data: [0, 20, 10, 30, 15, 40, 20, 60, 60],
+          data: [30, 28, 26, 30, 28, 40, 37],
+          //backgroundImage: "linear-gradient(to right, #0095FF, #0095FF)",
+          borderColor: "#0095FF",
+
         },
       ],
     };
   },
-  data2: (canvas) => {
+  2: (canvas) => {
     return {
-      labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
           label: "Performance",
-          data: [0, 20, 5, 25, 10, 30, 15, 40, 40],
+          data: [30, 22, 30, 25, 30, 30, 22],
+          borderColor: "#07E098",
         },
       ],
     };
   },
+  3: (canvas) => {
+    return {
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      datasets: [
+        {
+          label: "Performance",
+          data: [26, 22, 25, 25, 22, 30, 25],
+          borderColor: "#68C9D2",
+        },
+      ],
+    };
+  }
 };
 
-// Example 2 of Chart inside src/views/Index.js (Total orders - Card)
-let chartExample2 = {
+
+//chart data used for Average Humidity
+let humidityData = {
   options: {
+   
     scales: {
       yAxes: [
         {
           ticks: {
+            stepSize: 25,
             callback: function (value) {
-              if (!(value % 10)) {
+           
                 //return '$' + value + 'k'
-                return value;
-              }
+                return value + "%";
+              
             },
           },
         },
@@ -399,21 +467,134 @@ let chartExample2 = {
       },
     },
   },
-  data: {
-    labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  1: {
+    labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        label: "Sales",
-        data: [25, 20, 30, 22, 17, 29],
+        label: "Sensor 1: ",
+        data: [80, 85, 78, 82, 88, 90, 84],
         maxBarThickness: 10,
+        backgroundColor: "#0095FF"
+      },
+      
+    ],
+  },
+  2: {
+    labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
+    datasets: [
+      {
+        label: "Sensor 2: ",
+        data: [75, 80, 77, 79, 83, 85, 81],
+        maxBarThickness: 10,
+        backgroundColor: "#00E096"
+      },
+    ],
+    },
+    3: {
+      labels: ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"],
+      datasets: [
+        {
+          label: "Sensor 3: ",
+          data: [82, 87, 84, 86, 89, 91, 85],
+          maxBarThickness: 10,
+          backgroundColor: "#68C9D2"
+        },
+      ],
+      }
+};
+
+// chart used for pH target vs reality
+let phData = {
+  optionsPh: {
+   
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            stepSize: 2,
+            callback: function (value) {
+           
+                //return '$' + value + 'k'
+                return value;
+              
+            },
+          },
+        },
+      ],
+    },
+    tooltips: {
+      callbacks: {
+        label: function (item, data) {
+          var label = data.datasets[item.datasetIndex].label || "";
+          var yLabel = item.yLabel;
+          var content = "";
+          if (data.datasets.length > 1) {
+            content += label;
+          }
+          content += yLabel;
+          return content;
+        },
+      },
+    },
+  },
+  1: {
+    labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "Sensor 1: ",
+        data: [6, 5, 7.5, 5, 7, 7.5, 7],
+        maxBarThickness: 10,
+        backgroundColor: "#4AB58E"
+      },
+      {
+        label: "Target: ",
+        data: [5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5],
+        maxBarThickness: 10,
+        backgroundColor: "#FFCF00"
       },
     ],
   },
+  2: {
+    labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "Sensor 2: ",
+        data: [6, 5, 6, 4.5, 7, 6, 7],
+        maxBarThickness: 10,
+        backgroundColor: "#4AB58E"
+      },
+      {
+        label: "Target: ",
+        data: [5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5],
+        maxBarThickness: 10,
+        backgroundColor: "#FFCF00"
+      },
+    ],
+  },
+  3: {
+    labels: ["Jan", "Feb", "March", "April", "May", "June", "July"],
+    datasets: [
+      {
+        label: "Sensor 3: ",
+        data: [8, 6, 6, 7, 7.5, 8, 7],
+        maxBarThickness: 10,
+        backgroundColor: "#4AB58E"
+      },
+      {
+        label: "Target: ",
+        data: [5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5],
+        maxBarThickness: 10,
+        backgroundColor: "#FFCF00"
+      },
+    ],
+  }
 };
+
 
 module.exports = {
   chartOptions, // used inside src/views/Index.js
   parseOptions, // used inside src/views/Index.js
-  chartExample1, // used inside src/views/Index.js
-  chartExample2, // used inside src/views/Index.js
+  temperatureData, // used inside src/views/Index.js
+  humidityData,
+  phData,
 };

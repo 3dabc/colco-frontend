@@ -1,6 +1,5 @@
 {
   "name": "argon-dashboard-react",
-  "version": "1.2.4",
   "description": "React version of Argon Dashboard by Creative Tim",
   "main": "index.js",
   "repository": {
@@ -31,7 +30,8 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "compile:scss": "sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.css",
     "minify:scss": "sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.min.css --style compressed",
-    "build:scss": "npm run compile:scss && npm run minify:scss && npm run map:scss"
+    "build:scss": "npm run compile:scss && npm run minify:scss && npm run map:scss",
+    "deploy": "npm run build && firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,11 +45,15 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "6.5.1",
     "ajv": "^8.16.0",
+    "axios": "^1.8.4",
     "bootstrap": "4.6.2",
     "chart.js": "2.9.4",
     "classnames": "2.3.2",
+    "dotenv": "^16.5.0",
+    "firebase": "^11.6.0",
     "moment": "2.29.4",
     "nouislider": "15.4.0",
+    "package.json": "^2.0.1",
     "react": "18.2.0",
     "react-chartjs-2": "2.11.2",
     "react-copy-to-clipboard": "5.1.0",
@@ -61,9 +65,9 @@
     "sass": "1.69.5"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.9",
-    "cross-env": "^7.0.3"
+    "gulp-append-prepend": "1.0.9"
   },
   "optionalDependencies": {
     "eslint-plugin-flowtype": "8.0.3",

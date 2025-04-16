@@ -58,18 +58,39 @@ const AdminNavbar = (props) => {
             </FormGroup>
           </Form>
           <Nav className="align-items-center d-none d-md-flex" navbar>
+          <UncontrolledDropdown nav>
+          <DropdownToggle className="pr-1" nav>
+                <Media className="align-items-center">
+                  <span className="avatar avatar-sm rounded-circle">
+                  <i class="fa-regular fa-bell"></i>
+                  </span>
+                  <Media className="ml-2 d-none d-lg-block">
+                    <span className="mb-0 text-sm font-weight-bold">
+                    </span>
+                  </Media>
+                </Media>
+              </DropdownToggle>
+            <DropdownMenu className="dropdown-menu" right> 
+              <DropdownItem to="/admin/notif" tag={Link}>
+                  <i className="fa-regular fa-bell" />
+                  <span>Notifications</span>
+                </DropdownItem>
+                <Media className="ml-2 d-none d-lg-block">
+                    <span className="mb-0 text-sm font-weight-bold">
+                    </span>
+                </Media>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+
+
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <img
-                      alt="..."
-                      src={require("../../assets/img/theme/team-4-800x800.jpg")}
-                    />
+                  <i class="fa-regular fa-user"></i>
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Jessica Jones
                     </span>
                   </Media>
                 </Media>
@@ -86,17 +107,9 @@ const AdminNavbar = (props) => {
                   <i className="ni ni-settings-gear-65" />
                   <span>Settings</span>
                 </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-calendar-grid-58" />
-                  <span>Activity</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-support-16" />
-                  <span>Support</span>
-                </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                  <i className="ni ni-user-run" />
+                <DropdownItem to="/auth/login" tag={Link}>
+                  <i className="ni ni-key-25" />
                   <span>Logout</span>
                 </DropdownItem>
               </DropdownMenu>
