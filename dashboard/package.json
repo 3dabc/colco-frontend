@@ -22,17 +22,17 @@
     "url": "https://github.com/creativetimofficial/argon-dashboard-react/issues"
   },
   "homepage": "https://demos.creative-tim.com/argon-dashboard-react/",
-"scripts": {
-  "start": "react-scripts start",
-  "build": "cross-env PUBLIC_URL=/ react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject",
-  "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-  "compile:scss": "sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.css",
-  "minify:scss": "sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.min.css --style compressed",
-  "build:scss": "npm run compile:scss && npm run minify:scss && npm run map:scss",
-  "deploy": "npm run build && firebase deploy"
-},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "cross-env PUBLIC_URL=/ react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "compile:scss": "sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.css",
+    "minify:scss": "sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.min.css --style compressed",
+    "build:scss": "npm run compile:scss && npm run minify:scss && npm run map:scss",
+    "deploy": "npm run build && firebase deploy"
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -45,6 +45,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "6.5.1",
     "ajv": "^8.16.0",
+    "axios": "^1.8.4",
     "bootstrap": "4.6.2",
     "chart.js": "2.9.4",
     "classnames": "2.3.2",

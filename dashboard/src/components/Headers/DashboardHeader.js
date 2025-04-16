@@ -1,54 +1,92 @@
-/*!
+import React, { useEffect, useState } from "react";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  Container,
+  Row,
+  Col,
+  UncontrolledDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
+import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext";
 
-=========================================================
-* Argon Dashboard React - v1.2.4
-=========================================================
+const DashboardHeader = ({ sensor, setSensor }) => {
+  const [measurements, setMeasurements] = useState({
+    soilMoisture: "N/A",
+    relativeHumidity: "N/A",
+    temperature: "N/A",
+    lightIntensity: "N/A",
+    soilPH: "N/A",
+  });
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
+  const { currentUser } = useAuth();
 
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// reactstrap components
-import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+  useEffect(() => {
+    const fetchMeasurements = async () => {
+      if (!currentUser) {
+        console.error("User is not authenticated.");
+        return;
+      }
   
-  const DashboardHeader = ({sensor, setSensor}) => {
+      try {
+        // Get the Firebase Auth token
+        const token = await currentUser.getIdToken();
   
-    return (
-      <>
-      
-        <div className="header pb-8 pt-5 pt-md-8" style={{backgroundColor: "023F3a"}}>
+        // Fetch sensor data from the backend
+        const response = await axios.get(`http://localhost:5000/api/v1/sensor/${sensor || 1}`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          },
+        });
+  
+        // Update measurements state with the fetched data
+        const { soilMoisture, relativeHumidity, temperature, lightIntensity, soilPH } = response.data;
+        setMeasurements({
+          soilMoisture: soilMoisture || "N/A",
+          relativeHumidity: relativeHumidity || "N/A",
+          temperature: temperature || "N/A",
+          lightIntensity: lightIntensity || "N/A",
+          soilPH: soilPH || "N/A",
+        });
+      } catch (error) {
+        console.error("Error fetching measurements:", error);
+      }
+    };
+  
+    fetchMeasurements();
+  }, [sensor, currentUser]);
+
+  return (
+    <>
+      <div
+        className="header pb-8 pt-5 pt-md-8"
+        style={{ backgroundColor: "023F3a" }}
+      >
         <Container fluid>
-
-        <Row className="align-items-center">
-        <Col lg="3">
-
-        <div className="d-flex align-items-center" style={{padding: "10px" }}>
-
-                  <UncontrolledDropdown>
-                      <DropdownToggle color="white">
-                      <span className="dropdown-menu-arrow" right>
-                          <i class="fa-solid fa-chevron-down"></i>
-                          <span className="text-dark">Sensors</span>
-                      </span>
-                      </DropdownToggle>
-                      <DropdownMenu class="dropdowntime">
-                      {[1,2,3].map((num) => (
-                            <DropdownItem key={num} onClick={() => {setSensor(num)}} >
-                            <span>{num}</span>
-                          </DropdownItem>
-                            ))}
+          <Row className="align-items-center">
+            <Col lg="3">
+              <div className="d-flex align-items-center" style={{ padding: "10px" }}>
+                <UncontrolledDropdown>
+                  <DropdownToggle color="white">
+                    <span className="dropdown-menu-arrow" right>
+                      <i className="fa-solid fa-chevron-down"></i>
+                      <span className="text-dark">Sensors</span>
+                    </span>
+                  </DropdownToggle>
+                  <DropdownMenu className="dropdowntime">
+                    {[1, 2, 3].map((num) => (
+                      <DropdownItem key={num} onClick={() => setSensor(num)}>
+                        <span>{num}</span>
+                      </DropdownItem>
+                    ))}
                   </DropdownMenu>
-                  </UncontrolledDropdown>
-                  </div>
-                  </Col>
+                </UncontrolledDropdown>
+              </div>
+            </Col>
             <div className="header-body">
               {/* Card stats */}
               <Row>
@@ -64,7 +102,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                             Soil Moisture
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            73%
+                            {measurements.soilMoisture}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -73,12 +111,6 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-success mr-2">
-                          <i className="fa fa-arrow-up" /> 3.48%
-                        </span>{" "}
-                        <span className="text-nowrap">Since last month</span>
-                      </p>
                     </CardBody>
                   </Card>
                 </Col>
@@ -93,7 +125,9 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                           >
                             Relative Humidity
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">77%</span>
+                          <span className="h2 font-weight-bold mb-0">
+                            {measurements.relativeHumidity}
+                          </span>
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -101,12 +135,6 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-danger mr-2">
-                          <i className="fas fa-arrow-down" /> 3.48%
-                        </span>{" "}
-                        <span className="text-nowrap">Since last week</span>
-                      </p>
                     </CardBody>
                   </Card>
                 </Col>
@@ -121,7 +149,9 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                           >
                             Temperature
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">35°C</span>
+                          <span className="h2 font-weight-bold mb-0">
+                            {measurements.temperature}
+                          </span>
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -129,12 +159,6 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-warning mr-2">
-                          <i className="fas fa-arrow-down" /> 1.10%
-                        </span>{" "}
-                        <span className="text-nowrap">Since yesterday</span>
-                      </p>
                     </CardBody>
                   </Card>
                 </Col>
@@ -149,7 +173,9 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                           >
                             Light Intensity
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">5,561 lx</span>
+                          <span className="h2 font-weight-bold mb-0">
+                            {measurements.lightIntensity}
+                          </span>
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -157,12 +183,6 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-success mr-2">
-                          <i className="fas fa-arrow-up" /> 12%
-                        </span>{" "}
-                        <span className="text-nowrap">Since last month</span>
-                      </p>
                     </CardBody>
                   </Card>
                 </Col>
@@ -178,7 +198,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                             Soil pH
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                            5.4
+                            {measurements.soilPH}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -187,24 +207,16 @@ import { Card, CardBody, CardTitle, Container, Row, Col, UncontrolledDropdown, D
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-success mr-2">
-                          <i className="fa fa-arrow-up" /> 3.48%
-                        </span>{" "}
-                        <span className="text-nowrap">Since last month</span>
-                      </p>
                     </CardBody>
                   </Card>
                 </Col>
-              
               </Row>
             </div>
-            </Row>
-          </Container>
-        </div>
-      </>
-    );
-  };
-  
-  export default DashboardHeader;
-  
+          </Row>
+        </Container>
+      </div>
+    </>
+  );
+};
+
+export default DashboardHeader;

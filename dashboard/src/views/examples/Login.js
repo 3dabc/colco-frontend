@@ -1,23 +1,5 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// reactstrap components
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -32,8 +14,27 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await login(email, password);
+      navigate("/admin/index"); // Redirect to the dashboard after successful login
+    } catch (err) {
+      setError("Failed to log in. Please check your credentials.");
+    }
+  };
+
   return (
     <>
       <Col lg="5" md="7">
@@ -52,10 +53,7 @@ const Login = () => {
                 <span className="btn-inner--icon">
                   <img
                     alt="..."
-                    src={
-                      require("../../assets/img/icons/common/github.svg")
-                        .default
-                    }
+                    src={require("../../assets/img/icons/common/github.svg").default}
                   />
                 </span>
                 <span className="btn-inner--text">Github</span>
@@ -69,10 +67,7 @@ const Login = () => {
                 <span className="btn-inner--icon">
                   <img
                     alt="..."
-                    src={
-                      require("../../assets/img/icons/common/google.svg")
-                        .default
-                    }
+                    src={require("../../assets/img/icons/common/google.svg").default}
                   />
                 </span>
                 <span className="btn-inner--text">Google</span>
@@ -83,7 +78,8 @@ const Login = () => {
             <div className="text-center text-muted mb-4">
               <small>Or sign in with credentials</small>
             </div>
-            <Form role="form">
+            {error && <div className="text-danger text-center mb-3">{error}</div>}
+            <Form role="form" onSubmit={handleSubmit}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -95,6 +91,8 @@ const Login = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </InputGroup>
               </FormGroup>
@@ -109,24 +107,26 @@ const Login = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </InputGroup>
               </FormGroup>
               <div className="custom-control custom-control-alternative custom-checkbox">
                 <input
                   className="custom-control-input"
-                  id=" customCheckLogin"
+                  id="customCheckLogin"
                   type="checkbox"
                 />
                 <label
                   className="custom-control-label"
-                  htmlFor=" customCheckLogin"
+                  htmlFor="customCheckLogin"
                 >
                   <span className="text-muted">Remember me</span>
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4" color="primary" type="submit">
                   Sign in
                 </Button>
               </div>
@@ -143,13 +143,10 @@ const Login = () => {
               <small>Forgot password?</small>
             </a>
           </Col>
-          <Col className="text-right" xs="6" to="/auth/registration" tag={Link}>
-            <a
-              className="text-light" 
-              href="#pablo"
-            >
-              <small>Create new account</small>
-            </a>
+          <Col className="text-right" xs="6">
+            <Link to="/auth/registration">
+              <small className="text-light">Create new account</small>
+            </Link>
           </Col>
         </Row>
       </Col>
