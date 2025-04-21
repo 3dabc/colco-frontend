@@ -19,7 +19,7 @@ const MapWrapper = () => {
           title: "Manizales, Caldas, Colombia",
         };
 
-        const responseStatus = 200; // Simulate HTTP 200 response
+        const responseStatus = 200; 
         if (responseStatus === 200) {
           const google = window.google;
           const myLatlng = new google.maps.LatLng(geoData.lat, geoData.lng);
@@ -95,7 +95,6 @@ const MapWrapper = () => {
           throw new Error("Failed to fetch geo data.");
         }
       } catch (error) {
-        // Simulate HTTP 401 response with error
         const errorResponse = {
           status: 401,
           error: `Unauthorized: ${error.message}`,
