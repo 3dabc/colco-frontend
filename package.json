@@ -1,0 +1,23 @@
+{
+  "name": "colco-frontend",
+  "version": "1.0.0",
+  "description": "React application for Colco 491 project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3dabc/Colco-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/3dabc/Colco-frontend/issues"
+  },
+  "homepage": "https://github.com/3dabc/Colco-frontend#readme",
+  "dependencies": {
+    "firebase": "^11.6.0"
+  }
+}
