@@ -96,12 +96,14 @@ const Maps = () => {
 
 const MapWrapper = () => {
   const mapRef = React.useRef(null);
+
   React.useEffect(() => {
     let google = window.google;
     let map = mapRef.current;
-    let lat = "5.0630";
-    let lng = "-75.5028";
+    const lat = 5.0630;
+    const lng = -75.5028;
     const myLatlng = new google.maps.LatLng(lat, lng);
+
     const mapOptions = {
       zoom: 14,
       center: myLatlng,
@@ -168,18 +170,26 @@ const MapWrapper = () => {
     });
 
     google.maps.event.addListener(marker, "click", function () {
-      infowindow.open(map, marker);
+      try {
+        infowindow.open(map, marker);
+      } catch (error) {
+        const errorResponse = {
+          status: 401,
+          error: `Unauthorized: ${error.message}`,
+        };
+        console.error(`Error ${errorResponse.status}: ${errorResponse.error}`);
+        alert(`Error ${errorResponse.status}: ${errorResponse.error}`);
+      }
     });
   }, []);
+
   return (
-    <>
-      <div
-        style={{ height: `600px` }}
-        className="map-canvas"
-        id="map-canvas"
-        ref={mapRef}
-      ></div>
-    </>
+    <div
+      style={{ height: `600px` }}
+      className="map-canvas"
+      id="map-canvas"
+      ref={mapRef}
+    ></div>
   );
 };
 

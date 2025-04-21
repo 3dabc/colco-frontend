@@ -42,15 +42,27 @@ const DashboardHeader = ({ sensor, setSensor }) => {
             Authorization: `Bearer ${token}`, // Include the token in the Authorization header
           },
         });
+
+        console.log("Backend response:", response.data); // Log the response to verify the structure
+
   
         // Update measurements state with the fetched data
-        const { soilMoisture, relativeHumidity, temperature, lightIntensity, soilPH } = response.data;
+        // const {
+        //   soil_moisture: soilMoisture,
+        //   relative_humidity: relativeHumidity,
+        //   temperature,
+        //   light_intensity: lightIntensity,
+        //   soil_ph: soilPH,
+        // } = response.data[1];
+
+        const { avg } = response.data;
+        
         setMeasurements({
-          soilMoisture: soilMoisture || "N/A",
-          relativeHumidity: relativeHumidity || "N/A",
-          temperature: temperature || "N/A",
-          lightIntensity: lightIntensity || "N/A",
-          soilPH: soilPH || "N/A",
+          soilMoisture: avg.soilMoisture ? `${avg.soilMoisture} %` : "N/A",
+          relativeHumidity: avg.relativeHumidity ? `${avg.relativeHumidity} %` : "N/A",
+          temperature: avg.temperature ? `${avg.temperature} °C` : "N/A",
+          lightIntensity: avg.lightIntensity ? `${avg.lightIntensity} lx` : "N/A",
+          soilPH: avg.soilPH ? `${avg.soilPH}` : "N/A",
         });
       } catch (error) {
         console.error("Error fetching measurements:", error);
