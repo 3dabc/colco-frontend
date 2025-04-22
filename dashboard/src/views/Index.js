@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import React, { useEffect, useState } from "react";
 // import axios from "axios";
 
@@ -177,14 +177,21 @@ import Header from "components/Headers/DashboardHeader.js";
 export default Index;*/}
 
 const Index = (props) => {
-  //const [activeNav, setActiveNav] = useState(1);
-  
-  // toggle which sensor's data is being displayed
-  const [sensor, setSensor] = useState(1)
+  const [sensor, setSensor] = useState(1);
+  const [currentHumidityData, setCurrentHumidityData] = useState(null);
+  const [currentTemperatureData, setCurrentTemperatureData] = useState(null);
+  const [currentPhData, setCurrentPhData] = useState(null);
 
-  if (window.Chart) {
-    parseOptions(Chart, chartOptions());
-  }
+  useEffect(() => {
+    if (window.Chart) {
+      parseOptions(Chart, chartOptions());
+    }
+
+    // Update chart data dynamically when the sensor changes
+    setCurrentHumidityData(humidityData[sensor]);
+    setCurrentTemperatureData(temperatureData[sensor]);
+    setCurrentPhData(phData[sensor]);
+  }, [sensor]);
 
  
   return (
@@ -207,15 +214,12 @@ const Index = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                {/* Chart */}
-                <div 
-                style={{position: "relative",
-                        height: "200px"}}>
-                  <Bar
-                    data={humidityData[sensor]}
-                    options={humidityData.options}
-
-                  />
+              <div style={{ position: "relative", height: "200px" }}>
+                  {currentHumidityData ? (
+                    <Bar data={currentHumidityData} options={humidityData.options} />
+                  ) : (
+                    <p>Loading...</p>
+                  )}
                 </div>
               </CardBody>
             </Card>
@@ -234,16 +238,15 @@ const Index = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <div 
-                style={{position: "relative",
-                        height: "200px",
-                        }
-                        }>
-                  <Line 
-                    data={temperatureData[sensor]}
-                    options={temperatureData[sensor].chartOptions}
-                    getDatasetAtEvent={(e) => console.log(e)}
-                  />
+              <div style={{ position: "relative", height: "200px" }}>
+                  {currentTemperatureData ? (
+                    <Line
+                      data={currentTemperatureData}
+                      options={temperatureData[sensor]?.chartOptions || {}}
+                    />
+                  ) : (
+                    <p>Loading...</p>
+                  )}
                 </div>
               </CardBody>
             </Card>
@@ -261,14 +264,12 @@ const Index = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                {/* Chart */}
-                <div style={{position: "relative",
-                        height: "200px"}}>
-                  <Bar
-                    data={phData[sensor]}
-                    options={phData.optionsPh}
-
-                  />
+              <div style={{ position: "relative", height: "200px" }}>
+                  {currentPhData ? (
+                    <Bar data={currentPhData} options={phData.optionsPh} />
+                  ) : (
+                    <p>Loading...</p>
+                  )}
                 </div>
               </CardBody>
             </Card>

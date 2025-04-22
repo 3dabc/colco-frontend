@@ -397,7 +397,7 @@ let temperatureData = {
       labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
-          label: "Performance",
+          label: "Temperature",
           data: [30, 28, 26, 30, 28, 40, 37],
           //backgroundImage: "linear-gradient(to right, #0095FF, #0095FF)",
           borderColor: "#0095FF",
@@ -411,7 +411,7 @@ let temperatureData = {
       labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
-          label: "Performance",
+          label: "Temperature",
           data: [30, 22, 30, 25, 30, 30, 22],
           borderColor: "#07E098",
         },
@@ -423,7 +423,7 @@ let temperatureData = {
       labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       datasets: [
         {
-          label: "Performance",
+          label: "Temperature",
           data: [26, 22, 25, 25, 22, 30, 25],
           borderColor: "#68C9D2",
         },
