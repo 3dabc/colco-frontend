@@ -1,88 +1,144 @@
-import React from 'react';
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-import { Container , Card, CardHeader, Table, Button } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Card, CardHeader, Table, Button, Input } from "reactstrap";
 import Header from "components/Headers/Header.js";
- 
+
 const Hardware = () => {
-    // const[hardwareData, setHardwareData] = useState([]);
-    // useEffect(() => {   
-    //     axios
-    //     .get(`${process.env.REACT_APP_API_URL}/hardware`)
-    //     .then((response) => {
-    //         setHardwareData(response.data);
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error fetching hardware data:", error);
-    //     });
-    // }, []);
+  const [devices, setDevices] = useState(() => {
+    const savedDevices = localStorage.getItem("devices");
+    return savedDevices
+      ? JSON.parse(savedDevices)
+      : [
+          { id: 1, location: "Hill", connectivity: "Connected" },
+          { id: 2, location: "Field", connectivity: "Not Connected" },
+          { id: 3, location: "Farmhouse", connectivity: "Connected" },
+        ];
+  });
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedDevices, setEditedDevices] = useState([...devices]);
+
+  useEffect(() => {
+    localStorage.setItem("devices", JSON.stringify(devices));
+  }, [devices]);
+
+  const handleEditClick = () => {
+    setIsEditing(!isEditing);
+    setEditedDevices([...devices]);
+  };
+
+  const handleInputChange = (id, field, newValue) => {
+    const updatedDevices = editedDevices.map((device) =>
+      device.id === id ? { ...device, [field]: newValue } : device
+    );
+    setEditedDevices(updatedDevices);
+  };
+
+  const handleSave = () => {
+    setDevices([...editedDevices]);
+    setIsEditing(false);
+  };
+
+  const handleAddRow = () => {
+    const newId = devices.length > 0 ? devices[devices.length - 1].id + 1 : 1;
+    const newDevice = { id: newId, location: "New Location", connectivity: "Not Connected" };
+    setEditedDevices([...editedDevices, newDevice]);
+    if (!isEditing) setDevices([...devices, newDevice]);
+  };
+
+  const handleDeleteRow = (id) => {
+    const updatedDevices = editedDevices.filter((device) => device.id !== id);
+    const cascadedDevices = updatedDevices.map((device, index) => ({
+      ...device,
+      id: index + 1, // Reassign IDs sequentially
+    }));
+    setEditedDevices(cascadedDevices);
+    if (!isEditing) setDevices(cascadedDevices);
+  };
+
   return (
-//     <div>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>Device</th>
-//             <th>Status</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {hardwareData.map((device, index) => (
-//             <tr key={index}>
-//               <td>{device.name}</td>
-//               <td>{device.status}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
     <div>
-        <Header />
-        <Container>
-            <Card className="bg-secondary shadow border-0">
-                <CardHeader className="bg-transparent pb-5">
-                    <div className="text-muted text-center mt-2 mb-3">
-                        <medium>Connected Devices</medium>
-                    </div>
-                </CardHeader>
-                <div className="text-center">
+      <Header />
+      <Container>
+        <Card className="bg-secondary shadow border-0">
+          <CardHeader className="bg-transparent pb-5">
+            <div className="text-muted text-center mt-2 mb-3">
+              <medium>Connected Nodes</medium>
+            </div>
+          </CardHeader>
+          <div className="text-center">
             <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Device</th>
-                        <th>Location</th>
-                        <th>Connectivity</th>
-                    </tr>
-                </thead>
-            <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Hill</td>
-                        <td>Connected</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Field</td>
-                        <td>Not Connected</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td >Farmhouse</td>
-                        <td>Connected</td>
-                    </tr>
-            </tbody>
+              <thead>
+                <tr>
+                  <th>Node</th>
+                  <th>Location</th>
+                  <th>Connectivity</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {editedDevices.map((device) => (
+                  <tr key={device.id}>
+                    <td>{device.id}</td>
+                    <td>
+                      {isEditing ? (
+                        <Input
+                          type="text"
+                          value={device.location}
+                          onChange={(e) =>
+                            handleInputChange(device.id, "location", e.target.value)
+                          }
+                        />
+                      ) : (
+                        device.location
+                      )}
+                    </td>
+                    <td>
+                      {isEditing ? (
+                        <select
+                          value={device.connectivity}
+                          onChange={(e) =>
+                            handleInputChange(device.id, "connectivity", e.target.value)
+                          }
+                        >
+                          <option value="Connected">Connected</option>
+                          <option value="Not Connected">Not Connected</option>
+                        </select>
+                      ) : (
+                        device.connectivity
+                      )}
+                    </td>
+                    <td>
+                      <Button
+                        color="danger"
+                        size="sm"
+                        onClick={() => handleDeleteRow(device.id)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </Table>
-            </div>
-            <div className="btn-wrapper text-left" style={{padding: "20px"}}> 
-                <Button color="primary" size="sm" type="button">
-                    Edit Devices
-                </Button>
-            </div>
-            </Card>
-        </Container>
+          </div>
+          <div className="btn-wrapper text-left" style={{ padding: "20px" }}>
+            <Button color="success" size="sm" onClick={handleAddRow}>
+              Add Node
+            </Button>
+            {isEditing ? (
+              <Button color="success" size="sm" onClick={handleSave} style={{ marginLeft: "10px" }}>
+                Save Changes
+              </Button>
+            ) : (
+              <Button color="primary" size="sm" onClick={handleEditClick} style={{ marginLeft: "10px" }}>
+                Edit Nodes
+              </Button>
+            )}
+          </div>
+        </Card>
+      </Container>
     </div>
-  )
-}
+  );
+};
 
 export default Hardware;
