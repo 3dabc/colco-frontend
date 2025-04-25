@@ -43,7 +43,7 @@ const DashboardHeader = ({ sensor, setSensor }) => {
           },
         });
 
-        console.log("Backend response:", response.data); // Log the response to verify the structure
+        // console.log("Backend response:", response.data); // Log the response to verify the structure
 
   
         // Update measurements state with the fetched data
@@ -86,11 +86,11 @@ const DashboardHeader = ({ sensor, setSensor }) => {
                   <DropdownToggle color="white">
                     <span className="dropdown-menu-arrow" right>
                       <i className="fa-solid fa-chevron-down"></i>
-                      <span className="text-dark">Sensors</span>
+                      <span className="text-dark">Nodes</span>
                     </span>
                   </DropdownToggle>
                   <DropdownMenu className="dropdowntime">
-                    {[1, 2, 3].map((num) => (
+                    {[1].map((num) => (
                       <DropdownItem key={num} onClick={() => setSensor(num)}>
                         <span>{num}</span>
                       </DropdownItem>
