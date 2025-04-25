@@ -40,19 +40,15 @@ const Hardware = () => {
 
   const handleAddRow = () => {
     const newId = devices.length > 0 ? devices[devices.length - 1].id + 1 : 1;
-    const newDevice = { id: newId, location: "New Location", connectivity: "Not Connected" };
+    const newDevice = { id: newId, location: "New Location", connectivity: "Connected" };
     setEditedDevices([...editedDevices, newDevice]);
     if (!isEditing) setDevices([...devices, newDevice]);
   };
 
   const handleDeleteRow = (id) => {
     const updatedDevices = editedDevices.filter((device) => device.id !== id);
-    const cascadedDevices = updatedDevices.map((device, index) => ({
-      ...device,
-      id: index + 1, // Reassign IDs sequentially
-    }));
-    setEditedDevices(cascadedDevices);
-    if (!isEditing) setDevices(cascadedDevices);
+    setEditedDevices(updatedDevices);
+    if (!isEditing) setDevices(updatedDevices);
   };
 
   return (
@@ -92,21 +88,7 @@ const Hardware = () => {
                         device.location
                       )}
                     </td>
-                    <td>
-                      {isEditing ? (
-                        <select
-                          value={device.connectivity}
-                          onChange={(e) =>
-                            handleInputChange(device.id, "connectivity", e.target.value)
-                          }
-                        >
-                          <option value="Connected">Connected</option>
-                          <option value="Not Connected">Not Connected</option>
-                        </select>
-                      ) : (
-                        device.connectivity
-                      )}
-                    </td>
+                    <td>{device.connectivity}</td> {/* Connectivity is no longer editable */}
                     <td>
                       <Button
                         color="danger"
