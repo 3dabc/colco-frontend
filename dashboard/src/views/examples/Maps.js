@@ -103,11 +103,7 @@ const Maps2 = () => {
         <Row>
           <div className="col">
             <Card className="shadow border-0">
-              <div
-                id="map"
-                style={{ height: "600px" }}
-                className="map-canvas"
-              ></div>
+              <MapWrapper />
             </Card>
           </div>
         </Row>
