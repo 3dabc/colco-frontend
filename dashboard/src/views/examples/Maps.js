@@ -1,68 +1,26 @@
+//map with dynamic location and sensor data
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
-// reactstrap components
 import { Card, Container, Row } from "reactstrap";
+import UserHeader from "components/Headers/UserHeader";
 
-// core components
-import Header from "components/Headers/Header.js";
-import { useAuth } from "../../contexts/AuthContext";
-import DashboardHeader from "components/Headers/DashboardHeader";
-
-const Maps = () => {
-  const { currentUser } = useAuth();
-
-  const [coordinate, setCoordinate] = useState({
-    latitude: 34.2419, // Default latitude for Jacaranda Hall, CSUN if API fails
-    longitude: -118.5281, // Default longitude for Jacaranda Hall, CSUN if API fails
-  });
+const MapWrapper = () => {
+  const mapRef = React.useRef(null);
+  const [sensorData, setSensorData] = useState([]);
 
   useEffect(() => {
-    // Fetch GPS coordinate from the API
-    const fetchCoordinate = async () => {
-      if (!currentUser) {
-        console.error("User is not authenticated.");
-        return;
-      }
-
+    // Fetch sensor data from the backend
+    const fetchSensorData = async () => {
       try {
-        const token = await currentUser.getIdToken(true); // Force refresh the token
-
-        const response = await axios.get(`http://localhost:5000/api/v1/sensor/1`, {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-          },
-        });
-        console.log("API Response:", response.data);
-        const {data} = response.data;
-
-        // Extract the most recent GPS coordinates from the "data" part of the response
-        if (data && data.data && data.data.length > 0) {
-          const mostRecentData = data.data[0]; // Assuming the most recent data point is the first in the array
-          console.log("Most Recent Data:", mostRecentData);
-
-          if (mostRecentData.gps_coordinates) {
-            const { latitude, longitude } = mostRecentData.gps_coordinates;
-            if (latitude && longitude) {
-              setCoordinate({ latitude, longitude }); // Store the extracted coordinates
-            } else {
-              console.warn("Invalid GPS coordinates in the most recent data point. Using default coordinates.");
-            }
-          } else {
-            console.warn("No GPS coordinates found in the most recent data point. Using default coordinates.");
-          }
-        } else {
-          console.warn("No data found in API response. Using default coordinates.");
-        }
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/sensors`);
+        setSensorData(response.data); // Assuming the API returns an array of sensor objects
       } catch (error) {
-        console.error("Error fetching GPS coordinates:", error);
-        console.warn("Using default coordinates for Jacaranda Hall, CSUN.");
+        console.error("Error fetching sensor data:", error);
       }
     };
 
-    fetchCoordinate();
+    fetchSensorData();
 
-    // Dynamically load the Google Maps API script
     const loadGoogleMapsScript = () => {
       const script = document.createElement("script");
       script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_API_KEY}&callback=initMap`;
@@ -78,29 +36,69 @@ const Maps = () => {
 
     // Initialize the map after the Google Maps API has loaded
     window.initMap = () => {
-      const center = { lat: coordinate.latitude, lng: coordinate.longitude };
-
-      // Create the map
-      const map = new window.google.maps.Map(document.getElementById("map"), {
-        zoom: 12,
-        center: center,
+      const map = new window.google.maps.Map(mapRef.current, {
+        zoom: 13,
+        center: { lat: 5.0669, lng: -75.52272 }, // Default center (Manizales, Caldas, Colombia)
       });
 
-      // Add a marker for the coordinate
-      new window.google.maps.Marker({
-        position: center,
-        map: map,
-        title: `Coordinates: (${coordinate.latitude}, ${coordinate.longitude})`, // Dynamic title based on coordinates
+      // Add markers for each sensor
+      sensorData.forEach((sensor) => {
+        const {
+          gps_coordinates: { latitude, longitude },
+          soil_moisture,
+          soil_ph,
+          temperature,
+          light_intensity,
+        } = sensor;
+
+        const marker = new window.google.maps.Marker({
+          position: { lat: latitude, lng: longitude },
+          map: map,
+          animation: window.google.maps.Animation.DROP,
+          title: `Sensor at (${latitude}, ${longitude})`,
+        });
+
+        const contentString = `
+          <div class="info-window-content">
+            <h2>Sensor Data</h2>
+            <p><strong>Soil Moisture:</strong> ${soil_moisture}%</p>
+            <p><strong>Soil pH:</strong> ${soil_ph}</p>
+            <p><strong>Temperature:</strong> ${temperature}°C</p>
+            <p><strong>Light Intensity:</strong> ${light_intensity} lux</p>
+          </div>
+        `;
+
+        const infowindow = new window.google.maps.InfoWindow({
+          content: contentString,
+        });
+
+        marker.addListener("mouseover", () => {
+          infowindow.open(map, marker);
+        });
+
+        marker.addListener("mouseout", () => {
+          infowindow.close();
+        });
       });
     };
 
-    loadGoogleMapsScript(); // Load the Google Maps API script
-  }, []); // Run only once when the component mounts
+    loadGoogleMapsScript();
+  }, [sensorData]);
 
   return (
+    <div
+      style={{ height: `600px` }}
+      className="map-canvas"
+      id="map-canvas"
+      ref={mapRef}
+    ></div>
+  );
+};
+
+const Maps2 = () => {
+  return (
     <>
-      <DashboardHeader />
-      {/* Page content */}
+      <UserHeader />
       <Container className="mt--7" fluid>
         <Row>
           <div className="col">
@@ -118,4 +116,96 @@ const Maps = () => {
   );
 };
 
-export default Maps;
+export default Maps2;
+
+
+
+// STATIC MAP WITH HARDCODED SENSOR POPUP INFO 
+// import React, { useEffect, useRef } from "react";
+// import { Card, Container, Row } from "reactstrap";
+// import Header from "components/Headers/Header.js";
+
+// const MapWrapper = () => {
+//   const mapRef = useRef(null);
+
+//   useEffect(() => {
+//     const loadGoogleMapsScript = () => {
+//       const script = document.createElement("script");
+//       script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_MAPS_API_KEY}&callback=initMap`;
+//       script.async = true;
+//       script.defer = true;
+//       document.body.appendChild(script);
+//     };
+
+//     // Initialize the map after the Google Maps API has loaded
+//     window.initMap = () => {
+//       const map = new window.google.maps.Map(mapRef.current, {
+//         zoom: 13,
+//         center: { lat: 5.0669, lng: -75.52272 }, // Default center (Manizales, Caldas, Colombia)
+//       });
+
+//       // Add a static marker with hardcoded data
+//       const marker = new window.google.maps.Marker({
+//         position: { lat: 5.0669, lng: -75.52272 }, // Static position
+//         map: map,
+//         animation: window.google.maps.Animation.DROP,
+//         title: "Static Sensor Location",
+//       });
+
+//       // Hardcoded info window content
+//       const contentString = `
+//         <div class="info-window-content">
+//           <h2>Static Sensor Data</h2>
+//           <p><strong>Soil Moisture:</strong> 45%</p>
+//           <p><strong>Soil pH:</strong> 6.8</p>
+//           <p><strong>Temperature:</strong> 25°C</p>
+//           <p><strong>Light Intensity:</strong> 300 lux</p>
+//         </div>
+//       `;
+
+//       const infowindow = new window.google.maps.InfoWindow({
+//         content: contentString,
+//       });
+
+//       // Show the info window on marker hover
+//       marker.addListener("mouseover", () => {
+//         infowindow.open(map, marker);
+//       });
+
+//       // Hide the info window when the mouse leaves the marker
+//       marker.addListener("mouseout", () => {
+//         infowindow.close();
+//       });
+//     };
+
+//     loadGoogleMapsScript();
+//   }, []);
+
+//   return (
+//     <div
+//       style={{ height: `600px` }}
+//       className="map-canvas"
+//       id="map-canvas"
+//       ref={mapRef}
+//     ></div>
+//   );
+// };
+
+// const Maps2 = () => {
+//   return (
+//     <>
+//       <Header />
+//       <Container className="mt--7" fluid>
+//         <Row>
+//           <div className="col">
+//             <Card className="shadow border-0">
+//               <MapWrapper />
+//             </Card>
+//           </div>
+//         </Row>
+//       </Container>
+//     </>
+//   );
+// };
+
+// export default Maps2;

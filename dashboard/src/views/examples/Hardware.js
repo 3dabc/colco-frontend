@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Card, CardHeader, Table, Button, Input } from "reactstrap";
-import Header from "components/Headers/Header.js";
+import UserHeader from "components/Headers/UserHeader";
 
 const Hardware = () => {
   const [devices, setDevices] = useState(() => {
@@ -53,12 +53,12 @@ const Hardware = () => {
 
   return (
     <div>
-      <Header />
+      <UserHeader />
       <Container>
         <Card className="bg-secondary shadow border-0">
           <CardHeader className="bg-transparent pb-5">
-            <div className="text-muted text-center mt-2 mb-3">
-              <medium>Connected Nodes</medium>
+            <div className="text-grey text-center mt-3">
+              <medium>Hardware Status</medium>
             </div>
           </CardHeader>
           <div className="text-center">
