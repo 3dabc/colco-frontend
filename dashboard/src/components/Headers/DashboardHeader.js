@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Card,
   CardBody,
@@ -11,66 +11,26 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
-import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
 
 const DashboardHeader = ({ sensor, setSensor }) => {
-  const [measurements, setMeasurements] = useState({
-    soilMoisture: "N/A",
-    relativeHumidity: "N/A",
-    temperature: "N/A",
-    lightIntensity: "N/A",
-    soilPH: "N/A",
-  });
+  const { sensorData } = useAuth(); // Access sensorData from AuthContext
 
-  const { currentUser } = useAuth();
-
-  useEffect(() => {
-    const fetchMeasurements = async () => {
-      if (!currentUser) {
-        console.error("User is not authenticated.");
-        return;
-      }
-  
-      try {
-        // Get the Firebase Auth token
-        const token = await currentUser.getIdToken();
-  
-        // Fetch sensor data from the backend
-        const response = await axios.get(`http://localhost:5000/api/v1/sensor/${sensor || 1}`, {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-          },
-        });
-
-        // console.log("Backend response:", response.data); // Log the response to verify the structure
-
-  
-        // Update measurements state with the fetched data
-        // const {
-        //   soil_moisture: soilMoisture,
-        //   relative_humidity: relativeHumidity,
-        //   temperature,
-        //   light_intensity: lightIntensity,
-        //   soil_ph: soilPH,
-        // } = response.data[1];
-
-        const { avg } = response.data;
-        
-        setMeasurements({
-          soilMoisture: avg.soilMoisture ? `${avg.soilMoisture} %` : "N/A",
-          relativeHumidity: avg.relativeHumidity ? `${avg.relativeHumidity} %` : "N/A",
-          temperature: avg.temperature ? `${avg.temperature} °C` : "N/A",
-          lightIntensity: avg.lightIntensity ? `${avg.lightIntensity} lx` : "N/A",
-          soilPH: avg.soilPH ? `${avg.soilPH}` : "N/A",
-        });
-      } catch (error) {
-        console.error("Error fetching measurements:", error);
-      }
-    };
-  
-    fetchMeasurements();
-  }, [sensor, currentUser]);
+  const measurements = {
+    soilMoisture: sensorData.avg.soilMoisture
+      ? `${sensorData.avg.soilMoisture} %`
+      : "N/A",
+    relativeHumidity: sensorData.avg.relativeHumidity
+      ? `${sensorData.avg.relativeHumidity} %`
+      : "N/A",
+    temperature: sensorData.avg.temperature
+      ? `${sensorData.avg.temperature} °C`
+      : "N/A",
+    lightIntensity: sensorData.avg.lightIntensity
+      ? `${sensorData.avg.lightIntensity} lx`
+      : "N/A",
+    soilPH: sensorData.avg.soilPH ? `${sensorData.avg.soilPH}` : "N/A",
+  };
 
   return (
     <>
