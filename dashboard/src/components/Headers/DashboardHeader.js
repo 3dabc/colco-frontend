@@ -18,16 +18,16 @@ const DashboardHeader = ({ sensor, setSensor }) => {
 
   const measurements = {
     soilMoisture: sensorData.avg.soilMoisture
-      ? `${sensorData.avg.soilMoisture} %`
+      ? `${sensorData.avg.soilMoisture}`
       : "N/A",
     relativeHumidity: sensorData.avg.relativeHumidity
-      ? `${sensorData.avg.relativeHumidity} %`
+      ? `${sensorData.avg.relativeHumidity}`
       : "N/A",
     temperature: sensorData.avg.temperature
-      ? `${sensorData.avg.temperature} °C`
+      ? `${sensorData.avg.temperature}`
       : "N/A",
     lightIntensity: sensorData.avg.lightIntensity
-      ? `${sensorData.avg.lightIntensity} lx`
+      ? `${sensorData.avg.lightIntensity}`
       : "N/A",
     soilPH: sensorData.avg.soilPH ? `${sensorData.avg.soilPH}` : "N/A",
   };

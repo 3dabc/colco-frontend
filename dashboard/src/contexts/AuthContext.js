@@ -19,11 +19,11 @@ export const AuthProvider = ({ children }) => {
   // Sensor data state
   const [sensorData, setSensorData] = useState({
     avg: {
-      soilMoisture: "TEST 50",
-      relativeHumidity: "TEST 70",
-      temperature: "TEST 35",
-      lightIntensity: "TEST 3000",
-      soilPH: "TEST 7.5",
+      soilMoisture: "N/A",
+      relativeHumidity: "N/A",
+      temperature: "N/A",
+      lightIntensity: "N/A",
+      soilPH: "N/A",
     },
     data: [],
   });
@@ -58,11 +58,21 @@ export const AuthProvider = ({ children }) => {
         // Safely update sensorData with fallback values for missing fields
         const updatedSensorData = {
           avg: {
-            soilMoisture: response.data.avg?.soilMoisture || "N/A",
-            relativeHumidity: response.data.avg?.relativeHumidity || "N/A",
-            temperature: response.data.avg?.temperature || "N/A",
-            lightIntensity: response.data.avg?.lightIntensity || "N/A",
-            soilPH: response.data.avg?.soilPH || "N/A",
+            soilMoisture: response.data.avg?.soilMoisture
+            ? `${response.data.avg.soilMoisture} %`
+            : "N/A",
+          relativeHumidity: response.data.avg?.relativeHumidity
+            ? `${response.data.avg.relativeHumidity} %`
+            : "N/A",
+          temperature: response.data.avg?.temperature
+            ? `${response.data.avg.temperature} °C`
+            : "N/A",
+          lightIntensity: response.data.avg?.lightIntensity
+            ? `${response.data.avg.lightIntensity} lx`
+            : "N/A",
+          soilPH: response.data.avg?.soilPH
+            ? `${response.data.avg.soilPH}`
+            : "N/A",
           },
           data: response.data.data || [],
         };
