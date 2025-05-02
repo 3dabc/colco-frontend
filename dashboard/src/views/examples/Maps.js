@@ -39,7 +39,6 @@ const MapWrapper = () => {
         <div class="info-window-content">
           <h2>Node Data</h2>
           <p><strong>Moisture:</strong> ${sensorData.avg.soilMoisture}</p>
-          <p><strong>Humidity:</strong> ${sensorData.avg.relativeHumidity}</p>
           <p><strong>Temperature:</strong> ${sensorData.avg.temperature}</p>
           <p><strong>Light Intensity:</strong> ${sensorData.avg.lightIntensity}</p>
           <p><strong>Soil pH:</strong> ${sensorData.avg.soilPH}</p>
