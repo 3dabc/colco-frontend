@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
   const [sensorData, setSensorData] = useState({
     avg: {
       soilMoisture: "N/A",
-      relativeHumidity: "N/A",
       temperature: "N/A",
       lightIntensity: "N/A",
       soilPH: "N/A",
@@ -60,9 +59,6 @@ export const AuthProvider = ({ children }) => {
           avg: {
             soilMoisture: response.data.avg?.soilMoisture
             ? `${response.data.avg.soilMoisture} %`
-            : "N/A",
-          relativeHumidity: response.data.avg?.relativeHumidity
-            ? `${response.data.avg.relativeHumidity} %`
             : "N/A",
           temperature: response.data.avg?.temperature
             ? `${response.data.avg.temperature} °C`

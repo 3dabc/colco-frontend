@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Card, Container, Row } from "reactstrap";
-import Header from "components/Headers/UserHeader.js";
+import UserHeader from "components/Headers/UserHeader.js";
 import { useAuth } from "../../contexts/AuthContext";
 
 const MapWrapper = () => {
@@ -38,7 +38,7 @@ const MapWrapper = () => {
       const contentString = `
         <div class="info-window-content">
           <h2>Node Data</h2>
-          <p><strong>Moisture:</strong> ${sensorData.avg.soilMoisture}</p>
+          <p><strong> Soil Moisture:</strong> ${sensorData.avg.soilMoisture}</p>
           <p><strong>Temperature:</strong> ${sensorData.avg.temperature}</p>
           <p><strong>Light Intensity:</strong> ${sensorData.avg.lightIntensity}</p>
           <p><strong>Soil pH:</strong> ${sensorData.avg.soilPH}</p>
@@ -76,7 +76,7 @@ const MapWrapper = () => {
 const Maps2 = () => {
   return (
     <>
-      <Header />
+      <UserHeader />
       <Container className="mt--7" fluid>
         <Row>
           <div className="col">

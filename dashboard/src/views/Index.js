@@ -208,7 +208,7 @@ const Index = (props) => {
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
                       Performance
                     </h6>
-                    <h2 className="mb-0">Average Humidity</h2>
+                    <h2 className="mb-0">Average Soil Moisture</h2>
                   </div>
                  
                 </Row>
