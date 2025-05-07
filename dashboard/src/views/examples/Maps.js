@@ -18,14 +18,19 @@ const MapWrapper = () => {
 
     // Initialize the map after the Google Maps API has loaded
     window.initMap = () => {
+      if (!gpsCoordinates) {
+        console.error("GPS coordinates are not available.");
+        return;
+      }
+    
       // Use GPS coordinates from AuthContext
       const { latitude: lat, longitude: lng } = gpsCoordinates;
-
+    
       const map = new window.google.maps.Map(mapRef.current, {
         zoom: 13,
         center: { lat, lng }, // Use coordinates from AuthContext
       });
-
+    
       // Add a marker at the dynamic location
       const marker = new window.google.maps.Marker({
         position: { lat, lng },
@@ -33,7 +38,7 @@ const MapWrapper = () => {
         animation: window.google.maps.Animation.DROP,
         title: "Node Location",
       });
-
+    
       // Dynamic info window content using sensorData.avg
       const contentString = `
         <div class="info-window-content">
@@ -44,22 +49,23 @@ const MapWrapper = () => {
           <p><strong>Soil pH:</strong> ${sensorData.avg.soilPH}</p>
         </div>
       `;
-
+    
       const infowindow = new window.google.maps.InfoWindow({
         content: contentString,
       });
-
+    
       // Show the info window on marker hover
       marker.addListener("mouseover", () => {
         infowindow.open(map, marker);
       });
-
+    
       // Hide the info window when the mouse leaves the marker
       marker.addListener("mouseout", () => {
         infowindow.close();
       });
     };
 
+    console.log("Google Maps API Key:", process.env.REACT_APP_MAPS_API_KEY);
     loadGoogleMapsScript(); // Load Google Maps script
   }, [sensorData, gpsCoordinates]); // Re-run when sensorData or gpsCoordinates changes
 
