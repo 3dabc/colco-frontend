@@ -1,22 +1,6 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// reactstrap components
+import UserHeader from "components/Headers/UserHeader.js";
+import { auth } from "../../config/firebaseConfig";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -29,85 +13,80 @@ import {
   Row,
   Col,
 } from "reactstrap";
-// import React, { useState } from "react";
-// import axios from "axios";
-
-// core components
-import UserHeader from "components/Headers/UserHeader.js";
+import { getAccount, updateAccount } from "../../services/profileService";
 
 const Profile = () => {
-  // const [profileData, setProfileData] = useState(null);
-  // useEffect(() => {
-  //   //example API call to fetch user profile data
-  //   axios
-  //     .get("https://api.example.com/user/profile")
-  //     .then((response) => {
-  //       setProfileData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching profile data:", error);
-  //     });
-  // }, []);
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    country: "",
+    postalCode: "",
+  });
+
+  useEffect(() => {
+    if (!auth.currentUser) {
+      console.error("User is not logged in.");
+      return;
+    }
+  
+    const fetchAccountData = async () => {
+      try {
+        const userId = auth.currentUser.uid;
+        const accountData = await getAccount(userId);
+        setFormData({
+          username: accountData.username || "",
+          email: accountData.email || "",
+          firstName: accountData.firstName || "",
+          lastName: accountData.lastName || "",
+          address: accountData.address || "",
+          city: accountData.city || "",
+          country: accountData.country || "",
+          postalCode: accountData.postalCode || "",
+        });
+      } catch (error) {
+        console.error("Error fetching account data:", error);
+      }
+    };
+  
+    fetchAccountData();
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    // Optionally reset form data to original values if needed
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      const userId = auth.currentUser.uid; // Replace with the actual user ID
+      await updateAccount(userId, formData);
+      setIsEditing(false);
+      alert("Account updated successfully!");
+    } catch (error) {
+      console.error("Error updating account:", error);
+      alert("Failed to update account.");
+    }
+  };
+
   return (
     <>
       <UserHeader />
-      {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
-          <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
-            <Card className="card-profile shadow">
-              <Row className="justify-content-center">
-                <Col className="order-lg-2" lg="3">
-                  <div className="card-profile-image">
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img
-                        alt="..."
-                        className="rounded-circle"
-                        src={require("../../assets/img/theme/user profile.jpg")}
-                      />
-                    </a>
-                  </div>
-                </Col>
-              </Row>
-              <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4 bg-white">
-                <div className="d-flex justify-content-between">
-                 
-                </div>
-              </CardHeader>
-              <CardBody className="pt-0 pt-md-4">
-                <Row>
-                  <div className="col">
-                    <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                      <div>
-                    
-                      </div>
-                    </div>
-                  </div>
-                </Row>
-                <div className="text-center">
-                  <h3>
-                
-                    <span className="font-weight-"> </span>
-                  </h3>
-                  <div className="h5 font-weight-300">
-                
-                  
-                  </div>
-                  <div className="h5 mt-4">
-                
-                  
-                  </div>
-                  <hr className="my-4" />
-                  <p>
-                  
-                  </p>
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                
-                  </a>
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
           <Col className="order-xl-1" xl="8">
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
@@ -116,14 +95,15 @@ const Profile = () => {
                     <h3 className="mb-0">My account</h3>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      Edit Account
-                    </Button>
+                    {!isEditing && (
+                      <Button
+                        color="primary"
+                        onClick={handleEditClick}
+                        size="sm"
+                      >
+                        Edit Account
+                      </Button>
+                    )}
                   </Col>
                 </Row>
               </CardHeader>
@@ -138,31 +118,37 @@ const Profile = () => {
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-username"
+                            htmlFor="username"
                           >
                             Username
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-username"
+                            id="username"
                             placeholder="Username"
                             type="text"
+                            value={formData.username}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
                           />
                         </FormGroup>
                       </Col>
-                      <Col lg="5">
+                      <Col lg="6">
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-email"
+                            htmlFor="email"
                           >
                             Email address
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-email"
+                            id="email"
                             placeholder="Email"
                             type="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
                           />
                         </FormGroup>
                       </Col>
@@ -172,15 +158,18 @@ const Profile = () => {
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-first-name"
+                            htmlFor="firstName"
                           >
                             First name
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-first-name"
+                            id="firstName"
                             placeholder="First name"
                             type="text"
+                            value={formData.firstName}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
                           />
                         </FormGroup>
                       </Col>
@@ -188,24 +177,26 @@ const Profile = () => {
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-last-name"
+                            htmlFor="lastName"
                           >
                             Last name
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-last-name"
+                            id="lastName"
                             placeholder="Last name"
                             type="text"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
                           />
                         </FormGroup>
                       </Col>
                     </Row>
                   </div>
                   <hr className="my-4" />
-                  {/* Address */}
                   <h6 className="heading-small text-muted mb-4">
-                    Farm information
+                    Address information
                   </h6>
                   <div className="pl-lg-4">
                     <Row>
@@ -213,15 +204,18 @@ const Profile = () => {
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-address"
+                            htmlFor="address"
                           >
                             Address
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-address"
+                            id="address"
                             placeholder="Address"
                             type="text"
+                            value={formData.address}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
                           />
                         </FormGroup>
                       </Col>
@@ -231,15 +225,18 @@ const Profile = () => {
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-city"
+                            htmlFor="city"
                           >
                             City
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-city"
+                            id="city"
                             placeholder="City"
                             type="text"
+                            value={formData.city}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
                           />
                         </FormGroup>
                       </Col>
@@ -247,15 +244,18 @@ const Profile = () => {
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-country"
+                            htmlFor="country"
                           >
                             Country
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-country"
+                            id="country"
                             placeholder="Country"
                             type="text"
+                            value={formData.country}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
                           />
                         </FormGroup>
                       </Col>
@@ -263,21 +263,37 @@ const Profile = () => {
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-country"
+                            htmlFor="postalCode"
                           >
                             Postal code
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-postal-code"
+                            id="postalCode"
                             placeholder="Postal code"
                             type="number"
+                            value={formData.postalCode}
+                            onChange={handleInputChange}
+                            disabled={!isEditing}
                           />
                         </FormGroup>
                       </Col>
                     </Row>
                   </div>
-                
+                  {isEditing && (
+                    <div className="text-center mt-4">
+                      <Button
+                        color="secondary"
+                        onClick={handleCancelClick}
+                        className="mr-3"
+                      >
+                        Cancel
+                      </Button>
+                      <Button color="primary" onClick={handleSaveClick}>
+                        Save
+                      </Button>
+                    </div>
+                  )}
                 </Form>
               </CardBody>
             </Card>
