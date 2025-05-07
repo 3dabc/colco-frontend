@@ -6,7 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import axios from "axios";
+import { fetchSensorData } from "../services/sensorService";
 
 const AuthContext = createContext();
 
@@ -15,107 +15,63 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
-
-  // Sensor data state
-  const [sensorData, setSensorData] = useState({
-    avg: {
-      soilMoisture: "N/A",
-      temperature: "N/A",
-      lightIntensity: "N/A",
-      soilPH: "N/A",
-    },
-    data: [],
-  });
-  const [gpsCoordinates, setGpsCoordinates] = useState({
-    latitude: 5.0669,
-    longitude: -75.5174, // Manizales, Colombia
-  });
-  const [sensorLoading, setSensorLoading] = useState(true);
-  const [sensorError, setSensorError] =useState(null);
+  const [sensorData, setSensorData] = useState(null);
+  const [gpsCoordinates, setGpsCoordinates] = useState(null);
 
   // Track authentication state
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       setAuthLoading(false);
+
+      if (user) {
+        try {
+          const token = await user.getIdToken();
+          const { sensorData, gpsCoordinates } = await fetchSensorData(token);
+
+          // Store sensor data in state and browser cache
+          setSensorData(sensorData);
+          setGpsCoordinates(gpsCoordinates);
+          localStorage.setItem("sensorData", JSON.stringify(sensorData));
+          localStorage.setItem("gpsCoordinates", JSON.stringify(gpsCoordinates));
+        } catch (err) {
+          console.error("Error fetching sensor data after login:", err);
+        }
+      }
     });
 
     return unsubscribe; // Cleanup the listener on unmount
   }, []);
 
-  // Fetch sensor data
-  useEffect(() => {
-    const fetchSensorData = async () => {
-      try {
-        const token = await currentUser.getIdToken();
-        const response = await axios.get(`http://localhost:5000/api/v1/sensor/1`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        // Safely update sensorData with fallback values for missing fields
-        const updatedSensorData = {
-          avg: {
-            soilMoisture: response.data.avg?.soilMoisture
-            ? `${response.data.avg.soilMoisture} %`
-            : "N/A",
-          temperature: response.data.avg?.temperature
-            ? `${response.data.avg.temperature} °C`
-            : "N/A",
-          lightIntensity: response.data.avg?.lightIntensity
-            ? `${response.data.avg.lightIntensity} lx`
-            : "N/A",
-          soilPH: response.data.avg?.soilPH
-            ? `${response.data.avg.soilPH}`
-            : "N/A",
-          },
-          data: response.data.data || [],
-        };
-
-        setSensorData(updatedSensorData);
-
-        // Extract GPS coordinates from the first row of the data array
-        if (updatedSensorData.data.length > 0) {
-          const firstRow = updatedSensorData.data[0];
-          const gps = firstRow.gps_coordinates || {
-            latitude: 5.0669,
-            longitude: -75.5174, // Manizales, Colombia
-          };
-          setGpsCoordinates(gps);
-        } else {
-          setGpsCoordinates({
-            latitude: 5.0669,
-            longitude: -75.5174, // Manizales, Colombia
-          }); // Fallback if data array is empty
-        }
-      } catch (err) {
-        console.error("Error fetching sensor data:", err);
-        setSensorError("Failed to fetch sensor data.");
-        setGpsCoordinates({
-          latitude: 5.0669,
-          longitude: -75.5174, // Manizales, Colombia
-        }); // Fallback in case of an error
-      } finally {
-        setSensorLoading(false);
-      }
-    };
-
-    if (currentUser) {
-      fetchSensorData();
-    }
-  }, [currentUser]);
-
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("Login Successful:", userCredential.user); // Debugging
+      return userCredential.user;
+    } catch (error) {
+      console.error("Login Failed:", error.message); // Debugging
+      throw error;
+    }
   };
 
-  const logout = () => {
-    return signOut(auth);
+  const logout = async () => {
+    try {
+      console.log("Logging out...");
+      localStorage.clear(); // Clear all local storage
+      sessionStorage.clear(); // Clear all session storage
+      setSensorData(null);
+      setGpsCoordinates(null);
+      setCurrentUser(null); // Clear the currentUser state
+      await signOut(auth); // Sign out from Firebase
+      console.log("Logout successful");
+    } catch (error) {
+      console.error("Failed to log out:", error);
+      throw error;
+    }
   };
 
   const value = {
@@ -125,8 +81,6 @@ export const AuthProvider = ({ children }) => {
     logout,
     sensorData,
     gpsCoordinates,
-    sensorLoading,
-    sensorError,
   };
 
   return (

@@ -1,36 +1,15 @@
-/*!
-=========================================================
-* Argon Dashboard React - v1.2.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-/*eslint-disable*/
 import { useState } from "react";
-import { NavLink as NavLinkRRD, Link } from "react-router-dom";
+import { useNavigate, Link, NavLink as NavLinkRRD } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { useAuth } from "../../contexts/AuthContext"; // Import AuthContext
 
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
   Collapse,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  FormGroup,
   Form,
   Input,
   InputGroupAddon,
@@ -42,38 +21,57 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Progress,
-  Table,
   Container,
   Row,
   Col,
 } from "reactstrap";
 
-var ps;
-
 const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
-  const { currentUser } = useAuth(); // Access currentUser from AuthContext
+  const { currentUser, logout } = useAuth(); // Access currentUser from AuthContext
+  const navigate = useNavigate();
 
-  // verifies if routeName is the one active (in browser input)
-  const activeRoute = (routeName) => {
-    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
-  };
+  const handleLogout = async () => {
+      try {
+        console.log("Calling logout...");
+        await logout(); // Call the logout function from AuthContext
+        console.log("Navigating to login...");
+        navigate("/auth/login"); // Redirect to the login page
+      } catch (error) {
+        console.error("Failed to log out:", error);
+      }
+    };
+
   // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
     setCollapseOpen((data) => !data);
   };
+
   // closes the collapse
   const closeCollapse = () => {
     setCollapseOpen(false);
   };
+
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.name === "Registration" && currentUser) {
-        // Hide the registration button if the user is logged in
-        return null;
+      if (prop.action === "logout") {
+        return (
+          <NavItem key={key}>
+            <NavLink
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogout(); // Trigger the logout function
+              }}
+            >
+              <i className={prop.icon} />
+              {prop.name}
+            </NavLink>
+          </NavItem>
+        );
       }
+  
       return (
         <NavItem key={key}>
           <NavLink
@@ -89,7 +87,7 @@ const Sidebar = (props) => {
     });
   };
 
-  const { bgColor, routes, logo } = props;
+  const { routes, logo } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {
@@ -130,59 +128,46 @@ const Sidebar = (props) => {
         ) : null}
         {/* User */}
         <Nav className="align-items-center d-md-none">
-          <UncontrolledDropdown nav>
-            <DropdownToggle nav className="nav-link-icon">
-              <i className="ni ni-bell-55" />
-            </DropdownToggle>
-            <DropdownMenu
-              aria-labelledby="navbar-default_dropdown_1"
-              className="dropdown-menu-arrow"
-              right
-            >
-              <DropdownItem>Action</DropdownItem>
-              <DropdownItem>Another action</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Something else here</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-          <UncontrolledDropdown nav>
-            <DropdownToggle nav>
-              <Media className="align-items-center">
-                <span className="avatar avatar-sm rounded-circle">
-                  <img
-                    alt="..."
-                    src={require("../../assets/img/theme/user profile.jpg")}
-                  />
-                </span>
-              </Media>
-            </DropdownToggle>
-            <DropdownMenu className="dropdown-menu-arrow" right>
-              <DropdownItem className="noti-title" header tag="div">
-                <h6 className="text-overflow m-0">Welcome!</h6>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-single-02" />
-                <span>My profile</span>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-settings-gear-65" />
-                <span>Settings</span>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-calendar-grid-58" />
-                <span>Activity</span>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-support-16" />
-                <span>Support</span>
-              </DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                <i className="ni ni-user-run" />
-                <span>Logout</span>
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
+          {currentUser && (
+            <UncontrolledDropdown nav>
+              <DropdownToggle nav>
+                <Media className="align-items-center">
+                  <span className="avatar avatar-sm rounded-circle">
+                    <img
+                      alt="..."
+                      src={require("../../assets/img/theme/user profile.jpg")}
+                    />
+                  </span>
+                </Media>
+              </DropdownToggle>
+              <DropdownMenu className="dropdown-menu-arrow" right>
+                <DropdownItem className="noti-title" header tag="div">
+                  <h6 className="text-overflow m-0">Welcome!</h6>
+                </DropdownItem>
+                <DropdownItem to="/admin/user-profile" tag={Link}>
+                  <i className="ni ni-single-02" />
+                  <span>My profile</span>
+                </DropdownItem>
+                <DropdownItem to="/admin/user-profile" tag={Link}>
+                  <i className="ni ni-settings-gear-65" />
+                  <span>Settings</span>
+                </DropdownItem>
+                <DropdownItem to="/admin/user-profile" tag={Link}>
+                  <i className="ni ni-calendar-grid-58" />
+                  <span>Activity</span>
+                </DropdownItem>
+                <DropdownItem to="/admin/user-profile" tag={Link}>
+                  <i className="ni ni-support-16" />
+                  <span>Support</span>
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={handleLogout}>
+                  <i className="ni ni-user-run" />
+                  <span>Logout</span>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          )}
         </Nav>
         {/* Collapse */}
         <Collapse navbar isOpen={collapseOpen}>

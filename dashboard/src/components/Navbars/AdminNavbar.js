@@ -1,33 +1,10 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import { Link } from "react-router-dom";
-// reactstrap components
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext"; // Import AuthContext
 import {
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Form,
-  FormGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  InputGroup,
   Navbar,
   Nav,
   Container,
@@ -35,6 +12,20 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      console.log("Calling logout...");
+      await logout(); // Call the logout function from AuthContext
+      console.log("Navigating to login...");
+      navigate("/auth/login"); // Redirect to the login page
+    } catch (error) {
+      console.error("Failed to log out:", error);
+    }
+  };
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -43,44 +34,31 @@ const AdminNavbar = (props) => {
             className="h4 mb-0 text-black text-uppercase d-none d-lg-inline-block"
             to="/"
           >
-            {props.brandText}
+            {props.brandText || "Dashboard"}
           </Link>
           <Nav className="align-items-center d-none d-md-flex" navbar>
-          <UncontrolledDropdown nav>
-          <DropdownToggle className="pr-1" nav>
+            <UncontrolledDropdown nav>
+              <DropdownToggle className="pr-1" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                  <i class="fa-regular fa-bell"></i>
+                    <i className="fa-regular fa-bell" aria-hidden="true"></i>
                   </span>
-                  <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">
-                    </span>
-                  </Media>
                 </Media>
               </DropdownToggle>
-            <DropdownMenu className="dropdown-menu" right> 
-              <DropdownItem to="/admin/notif" tag={Link}>
+              <DropdownMenu className="dropdown-menu-arrow" right>
+                <DropdownItem to="/admin/notif" tag={Link}>
                   <i className="fa-regular fa-bell" />
                   <span>Notifications</span>
                 </DropdownItem>
-                <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">
-                    </span>
-                </Media>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-
+              </DropdownMenu>
+            </UncontrolledDropdown>
 
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                  <i class="fa-regular fa-user"></i>
+                    <i className="fa-regular fa-user" aria-hidden="true"></i>
                   </span>
-                  <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">
-                    </span>
-                  </Media>
                 </Media>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
@@ -92,7 +70,7 @@ const AdminNavbar = (props) => {
                   <span>My profile</span>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem to="/auth/login" tag={Link}>
+                <DropdownItem onClick={handleLogout}>
                   <i className="ni ni-key-25" />
                   <span>Logout</span>
                 </DropdownItem>

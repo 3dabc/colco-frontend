@@ -50,9 +50,15 @@ var routes = [
     layout: "/auth",
   },
   {
-    path: "/login",
     name: "Log Out",
     icon: "ni ni-key-25 text-muted",
+    action: "logout",
+    layout: "/auth",
+  },
+  {
+    path: "/login",
+    // name: "Log Out",
+    // icon: "ni ni-key-25 text-muted",
     component: <Login />,
     layout: "/auth",
   }

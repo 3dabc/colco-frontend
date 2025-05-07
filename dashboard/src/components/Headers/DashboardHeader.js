@@ -16,18 +16,19 @@ import { useAuth } from "../../contexts/AuthContext";
 const DashboardHeader = ({ sensor, setSensor }) => {
   const { sensorData } = useAuth(); // Access sensorData from AuthContext
 
-  const measurements = {
-    soilMoisture: sensorData.avg.soilMoisture
-      ? `${sensorData.avg.soilMoisture}`
-      : "N/A",
-    temperature: sensorData.avg.temperature
-      ? `${sensorData.avg.temperature}`
-      : "N/A",
-    lightIntensity: sensorData.avg.lightIntensity
-      ? `${sensorData.avg.lightIntensity}`
-      : "N/A",
-    soilPH: sensorData.avg.soilPH ? `${sensorData.avg.soilPH}` : "N/A",
-  };
+  const measurements = sensorData
+  ? {
+      soilMoisture: sensorData.avg?.soilMoisture || "N/A",
+      temperature: sensorData.avg?.temperature || "N/A",
+      lightIntensity: sensorData.avg?.lightIntensity || "N/A",
+      soilPH: sensorData.avg?.soilPH || "N/A",
+    }
+  : {
+      soilMoisture: "N/A",
+      temperature: "N/A",
+      lightIntensity: "N/A",
+      soilPH: "N/A",
+    };
 
   return (
     <>
